@@ -75,433 +75,118 @@
             backdrop-filter: blur(4px);
         }
 
-        .hero h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
-        }
+        .hero h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .hero p { font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
+        .island-deco { position: absolute; top: 15px; right: 20px; font-size: 3.5rem; opacity: 0.15; user-select: none; }
+        .island-deco-left { position: absolute; bottom: 60px; left: 20px; font-size: 3rem; opacity: 0.15; user-select: none; }
 
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .island-deco {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 3.5rem;
-            opacity: 0.15;
-            user-select: none;
-        }
-
-        .island-deco-left {
-            position: absolute;
-            bottom: 60px;
-            left: 20px;
-            font-size: 3rem;
-            opacity: 0.15;
-            user-select: none;
-        }
-
-        /* 內容容器 */
-        .container {
-            max-width: 850px;
-            margin: -40px auto 0 auto;
-            padding: 0 16px;
-            position: relative;
-            z-index: 10;
-        }
+        .container { max-width: 850px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10; }
 
         /* 倒數計時 */
         .countdown-card {
-            background: white;
-            border-radius: 24px;
-            padding: 24px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-            border: 1px solid rgba(14, 165, 233, 0.1);
+            background: white; border-radius: 24px; padding: 24px; text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid rgba(14, 165, 233, 0.1);
         }
+        .countdown-title { font-size: 1rem; color: var(--text-muted); margin-bottom: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .countdown-timer { display: flex; justify-content: center; gap: 15px; }
+        .time-block { min-width: 65px; }
+        .time-num { font-size: 1.8rem; font-weight: 700; color: var(--dark-ocean); background: var(--light-sky); padding: 8px 4px; border-radius: 12px; display: block; margin-bottom: 4px; }
+        .time-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
 
-        .countdown-title {
-            font-size: 1rem;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
+        /* 快捷資訊與卡片 */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 30px; }
+        .info-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border-left: 5px solid var(--primary-ocean); }
+        .info-card.accent { border-left-color: var(--warm-sun); }
+        
+        .weather-card { background: linear-gradient(135deg, #fffbeb, white); border-left-color: #fbbf24; }
+        .weather-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px dashed #fcd34d; padding-bottom: 10px; }
+        .weather-location { font-weight: 700; color: #b45309; font-size: 1.1rem; display: flex; align-items: center; gap: 6px; }
+        .weather-current { text-align: right; }
+        .weather-temp { font-size: 1.8rem; font-weight: 900; color: var(--text-main); line-height: 1; transition: all 0.3s; }
+        .weather-desc { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
+        
+        .forecast-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.03); font-size: 0.95rem; }
+        .forecast-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .forecast-date { color: var(--text-main); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .forecast-detail { display: flex; align-items: center; gap: 12px; }
+        .forecast-rain { color: #3b82f6; font-size: 0.85rem; display: flex; align-items: center; gap: 3px; font-weight: bold; }
+        .forecast-temps { color: var(--text-muted); font-weight: 500; min-width: 70px; text-align: right; }
+        .forecast-temps span { color: var(--text-main); font-weight: 700; }
 
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+        .info-card h3 { font-size: 1.05rem; color: var(--text-main); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .info-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 6px; }
+        .highlight-box { background-color: #fffbeb; border: 1px dashed #fef08a; padding: 10px 14px; border-radius: 12px; margin-top: 10px; font-size: 0.9rem; color: #b45309; }
+        
+        /* 按鈕群組 */
+        .btn-group { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+        
+        .action-btn { 
+            display: inline-flex; align-items: center; gap: 6px; 
+            background-color: var(--light-sky); color: var(--dark-ocean); 
+            padding: 8px 14px; border-radius: 50px; text-decoration: none; 
+            font-size: 0.85rem; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; 
         }
+        .action-btn:hover { background-color: var(--primary-ocean); color: white; }
+        .action-btn.copy { background-color: #f1f5f9; color: var(--text-main); }
+        .action-btn.copy:hover { background-color: #e2e8f0; }
 
-        .time-block {
-            min-width: 65px;
+        /* 提示框 */
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: rgba(30, 41, 59, 0.9); color: white; padding: 10px 20px;
+            border-radius: 50px; font-size: 0.9rem; font-weight: 500;
+            opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 1000;
         }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        .time-num {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark-ocean);
-            background: var(--light-sky);
-            padding: 8px 4px;
-            border-radius: 12px;
-            display: block;
-            margin-bottom: 4px;
+        /* 行程地圖小標籤 */
+        .map-link {
+            display: inline-flex; align-items: center; gap: 4px;
+            background: #fef08a; color: #854d0e; font-size: 0.75rem;
+            padding: 2px 8px; border-radius: 50px; text-decoration: none;
+            font-weight: 700; margin-left: 8px; transition: transform 0.2s;
         }
+        .map-link:hover { transform: scale(1.05); }
 
-        .time-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+        /* 標籤導覽與面板 */
+        .tabs-nav { display: flex; background: white; padding: 6px; border-radius: 50px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); gap: 4px; }
+        .tab-btn { flex: 1; border: none; background: none; padding: 14px 10px; border-radius: 50px; font-size: 1rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .tab-btn.active { background: linear-gradient(135deg, var(--primary-ocean), var(--dark-ocean)); color: white; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2); }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 集合快捷卡片 */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            margin-bottom: 30px;
-        }
+        /* 時間軸與找房間 */
+        .timeline { position: relative; padding-left: 24px; }
+        .timeline::before { content: ''; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 3px; background: linear-gradient(to bottom, var(--light-sky), var(--primary-ocean), var(--light-sky)); }
+        .timeline-item { position: relative; margin-bottom: 24px; }
+        .timeline-dot { position: absolute; left: -24px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: white; border: 4px solid var(--primary-ocean); box-shadow: 0 0 0 3px white; }
+        .timeline-card { background: white; border-radius: 18px; padding: 18px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .time-badge { font-size: 0.85rem; font-weight: 700; color: var(--primary-ocean); background-color: var(--light-sky); padding: 3px 10px; border-radius: 50px; display: inline-block; margin-bottom: 8px; }
+        .timeline-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap;}
+        .tag-self-pay { background-color: #fee2e2; color: #ef4444; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-left: 6px; }
 
-        .info-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            border-left: 5px solid var(--primary-ocean);
-        }
+        .room-section { margin-bottom: 30px; }
+        .room-section-title { font-size: 1.2rem; font-weight: 800; color: var(--dark-ocean); margin: 20px 0 15px 0; display: flex; align-items: center; gap: 8px; }
+        .room-section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, var(--light-sky), transparent); }
+        .room-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+        .room-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border-left: 6px solid var(--primary-ocean); transition: transform 0.2s; }
+        .room-card:hover { transform: translateY(-2px); }
+        .room-card.leader-room { border-left-color: var(--warm-sun); background: #fffbeb; }
+        .room-number { font-family: 'Comfortaa', sans-serif; font-size: 1.15rem; color: var(--dark-ocean); font-weight: 700; border-bottom: 1px dashed #e2e8f0; padding-bottom: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .room-names-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+        .member-tag { background: var(--bg-island); padding: 5px 12px; border-radius: 10px; font-size: 0.92rem; color: var(--text-main); display: inline-flex; align-items: center; font-weight: 500; border: 1px solid rgba(0,0,0,0.03); }
+        .title-badge { font-size: 0.75rem; background: #fef08a; color: #854d0e; padding: 1px 6px; border-radius: 4px; margin-left: 4px; font-weight: bold; }
 
-        .info-card.accent {
-            border-left-color: var(--warm-sun);
-        }
-
-        .info-card h3 {
-            font-size: 1.05rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .highlight-box {
-            background-color: #fffbeb;
-            border: 1px dashed #fef08a;
-            padding: 10px 14px;
-            border-radius: 12px;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #b45309;
-        }
-
-        .phone-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background-color: var(--light-sky);
-            color: var(--dark-ocean);
-            padding: 6px 14px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 8px;
-            transition: all 0.2s;
-        }
-
-        .phone-btn:hover {
-            background-color: var(--primary-ocean);
-            color: white;
-        }
-
-        /* 標籤導覽列 */
-        .tabs-nav {
-            display: flex;
-            background: white;
-            padding: 6px;
-            border-radius: 50px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            gap: 4px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            border: none;
-            background: none;
-            padding: 14px 10px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .tab-btn.active {
-            background: linear-gradient(135deg, var(--primary-ocean), var(--dark-ocean));
-            color: white;
-            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2);
-        }
-
-        /* 分頁面顯示控制 */
-        .tab-panel {
-            display: none;
-        }
-
-        .tab-panel.active {
-            display: block;
-            animation: fadeIn 0.4s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 時間軸行程表 */
-        .timeline {
-            position: relative;
-            padding-left: 24px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 7px;
-            top: 10px;
-            bottom: 10px;
-            width: 3px;
-            background: linear-gradient(to bottom, var(--light-sky), var(--primary-ocean), var(--light-sky));
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 24px;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -24px;
-            top: 6px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: white;
-            border: 4px solid var(--primary-ocean);
-            box-shadow: 0 0 0 3px white;
-        }
-
-        .timeline-card {
-            background: white;
-            border-radius: 18px;
-            padding: 18px 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-        }
-
-        .time-badge {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--primary-ocean);
-            background-color: var(--light-sky);
-            padding: 3px 10px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-
-        .timeline-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 6px;
-        }
-
-        .tag-self-pay {
-            background-color: #fee2e2;
-            color: #ef4444;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            margin-left: 6px;
-        }
-
-        /* 房間查詢卡片佈局 */
-        .room-section {
-            margin-bottom: 30px;
-        }
-
-        .room-section-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: var(--dark-ocean);
-            margin: 20px 0 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .room-section-title::after {
-            content: '';
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, var(--light-sky), transparent);
-        }
-
-        .room-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-        }
-
-        .room-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            border-left: 6px solid var(--primary-ocean);
-            transition: transform 0.2s;
-        }
-
-        .room-card:hover {
-            transform: translateY(-2px);
-        }
-
-        /* 會長房間特別醒目色 */
-        .room-card.leader-room {
-            border-left-color: var(--warm-sun);
-            background: #fffbeb;
-        }
-
-        .room-number {
-            font-family: 'Comfortaa', sans-serif;
-            font-size: 1.15rem;
-            color: var(--dark-ocean);
-            font-weight: 700;
-            border-bottom: 1px dashed #e2e8f0;
-            padding-bottom: 6px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .room-names-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .member-tag {
-            background: var(--bg-island);
-            padding: 5px 12px;
-            border-radius: 10px;
-            font-size: 0.92rem;
-            color: var(--text-main);
-            display: inline-flex;
-            align-items: center;
-            font-weight: 500;
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-
-        .title-badge {
-            font-size: 0.75rem;
-            background: #fef08a;
-            color: #854d0e;
-            padding: 1px 6px;
-            border-radius: 4px;
-            margin-left: 4px;
-            font-weight: bold;
-        }
-
-        /* 互動檢查清單 */
-        .checklist-card {
-            background: white;
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            margin-top: 30px;
-        }
-
-        .checklist-group-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--dark-ocean);
-            margin: 18px 0 10px 0;
-            padding-bottom: 4px;
-            border-bottom: 1px dashed var(--light-sky);
-        }
-
-        .checklist-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-        }
-
-        .check-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--bg-island);
-            padding: 12px 14px;
-            border-radius: 14px;
-            cursor: pointer;
-            user-select: none;
-            transition: all 0.2s;
-        }
-
-        .check-item input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #22c55e;
-        }
-
-        .check-item.completed {
-            background: #f0fdf4;
-            opacity: 0.6;
-        }
-
-        .check-item.completed span {
-            text-decoration: line-through;
-            color: #a8a29e;
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            margin: 35px 0 20px 0;
-            color: var(--dark-ocean);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title::after {
-            content: '';
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(14,165,233,0.2), transparent);
-        }
+        .section-title { font-size: 1.3rem; margin: 35px 0 20px 0; color: var(--dark-ocean); display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, rgba(14,165,233,0.2), transparent); }
+        
+        .checklist-card { background: white; border-radius: 24px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin-top: 30px; }
+        .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        .check-item { display: flex; align-items: center; gap: 10px; background: var(--bg-island); padding: 12px 14px; border-radius: 14px; cursor: pointer; user-select: none; transition: all 0.2s; }
+        .check-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #22c55e; }
+        .check-item.completed { background: #f0fdf4; opacity: 0.6; }
+        .check-item.completed span { text-decoration: line-through; color: #a8a29e; }
 
         @media (max-width: 480px) {
             .hero h1 { font-size: 1.7rem; }
@@ -509,10 +194,14 @@
             .time-block { min-width: 52px; }
             .time-num { font-size: 1.4rem; }
             .checklist-grid { grid-template-columns: 1fr 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+
+    <!-- 複製成功提示框 -->
+    <div id="toast" class="toast">✅ 電話已複製到剪貼簿！</div>
 
     <div class="hero">
         <div class="island-deco">🌴</div>
@@ -527,339 +216,236 @@
         <div class="countdown-card">
             <div class="countdown-title">⏱️ 距離大夥熱血出發還有</div>
             <div class="countdown-timer" id="timer">
-                <div class="time-block"><span class="time-num" id="days">00</span><span class="time-label">天 Days</span></div>
-                <div class="time-block"><span class="time-num" id="hours">00</span><span class="time-label">時 Hours</span></div>
-                <div class="time-block"><span class="time-num" id="minutes">00</span><span class="time-label">分 Mins</span></div>
-                <div class="time-block"><span class="time-num" id="seconds">00</span><span class="time-label">秒 Secs</span></div>
+                <div class="time-block"><span class="time-num" id="days">00</span><span class="time-label">天</span></div>
+                <div class="time-block"><span class="time-num" id="hours">00</span><span class="time-label">時</span></div>
+                <div class="time-block"><span class="time-num" id="minutes">00</span><span class="time-label">分</span></div>
+                <div class="time-block"><span class="time-num" id="seconds">00</span><span class="time-label">秒</span></div>
             </div>
         </div>
 
+        <!-- 快捷資訊與天氣卡片 -->
         <div class="info-grid">
-            <div class="info-card">
-                <h3>☀️ 集合報到</h3>
-                <p><strong>時間：</strong>5/30 (六) 07:10 ~ 07:30</p>
-                <p><strong>地點：</strong>龍山國小校門口 (07:30 準時發車)</p>
-                <div class="highlight-box">
-                    🍙 <strong>沛毅會長愛心早餐：</strong><br>報到處領取美味滿福堡，附大杯豆漿或奶茶！
+            <div class="info-card weather-card">
+                <div class="weather-header">
+                    <div class="weather-location">
+                        <span id="current-icon">🔄</span> 墾丁即時天氣
+                    </div>
+                    <div class="weather-current">
+                        <div class="weather-temp" id="current-temp">--°C</div>
+                        <div class="weather-desc" id="current-desc">氣象局連線中...</div>
+                    </div>
                 </div>
+                
+                <div class="forecast-row">
+                    <div class="forecast-date">5/30 (六) 出發 <span id="day1-icon">⏳</span></div>
+                    <div class="forecast-detail">
+                        <span class="forecast-rain" id="day1-pop">☔ --%</span>
+                        <div class="forecast-temps" id="day1-temp"><span>--</span> / --</div>
+                    </div>
+                </div>
+                <div class="forecast-row">
+                    <div class="forecast-date">5/31 (日) 賦歸 <span id="day2-icon">⏳</span></div>
+                    <div class="forecast-detail">
+                        <span class="forecast-rain" id="day2-pop">☔ --%</span>
+                        <div class="forecast-temps" id="day2-temp"><span>--</span> / --</div>
+                    </div>
+                </div>
+                
+                <p style="font-size: 0.8rem; color: #d97706; margin-top: 10px; text-align: center; font-weight: 600;">
+                    💡 氣象資訊每次開啟自動更新 (Open-Meteo)
+                </p>
             </div>
-            <div class="info-card accent">
-                <h3>📞 隨團聯絡人</h3>
-                <p><strong>總指揮：</strong>張素蓉 校長</p>
-                <p><strong>執行秘書：</strong>周易昌 老師</p>
-                <p><strong>專線：</strong>0982-845-311</p>
-                <a href="tel:0982845311" class="phone-btn">📞 一鍵致電周秘書</a>
+            
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div class="info-card" style="margin-bottom: 0;">
+                    <h3>☀️ 集合報到</h3>
+                    <p><strong>時間：</strong>5/30 (六) 07:10 ~ 07:30</p>
+                    <p><strong>地點：</strong>龍山國小校門口</p>
+                    <div class="highlight-box" style="margin-top: 6px; padding: 8px 12px;">
+                        🍙 <strong>沛毅會長贊助：</strong>美味飯糰＋飲品
+                    </div>
+                </div>
+                <div class="info-card accent" style="flex: 1;">
+                    <h3>📞 隨團聯絡人</h3>
+                    <p><strong>總指揮：</strong>張素蓉 校長</p>
+                    <p><strong>聯絡人：</strong>周易昌 老師 (0982-845-311)</p>
+                    <div class="btn-group">
+                        <a href="tel:0982845311" class="action-btn">📞 直接撥打</a>
+                        <button onclick="copyPhone('0982845311')" class="action-btn copy">📋 複製號碼</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('day1')">🕶️ Day 1 行程</button>
-            <button class="tab-btn" onclick="switchTab('day2')">👙 Day 2 行程</button>
+            <button class="tab-btn active" onclick="switchTab('day1')">🕶️ Day 1</button>
+            <button class="tab-btn" onclick="switchTab('day2')">👙 Day 2</button>
             <button class="tab-btn" onclick="switchTab('rooms')">🏠 找房間</button>
         </div>
 
+        <!-- DAY 1 -->
         <div id="panel-day1" class="tab-panel active">
             <div class="timeline">
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">07:30</span><div class="timeline-title">歡樂啟程！</div><p style="color:var(--text-muted);">大巴士出發，期待已久的南國度假正式開始！</p></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">10:00 - 11:30</span><div class="timeline-title">屏東勝利新村漫遊 <a href="https://maps.app.goo.gl/VApPCkVy9Kon7Mfv7" target="_blank" class="map-link">📍 導航</a></div><p style="color:var(--text-muted);">漫步老眷村改造的文青聚落，好拍又好逛。</p></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">12:00 - 13:30</span><div class="timeline-title">午餐：萬巒熊家豬腳 (萬巒本店) <a href="https://maps.app.goo.gl/amPaS8yrw7uAEWQe7" target="_blank" class="map-link">📍 導航</a></div><p style="color:var(--text-muted);">📍 萬巒鄉褒忠路156號 ｜ 📞 08-781-2521</p></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">13:30 - 14:30</span><div class="timeline-title">維多利亞天空之鏡飆沙 <span class="tag-self-pay">自費</span><a href="https://maps.app.goo.gl/FCtBxCKHVqRHd4fP8" target="_blank" class="map-link">📍 導航</a></div><p style="color:var(--text-muted);">騎乘沙灘車狂飆，拍出絕美天空倒影照片！</p></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">14:30 - 15:00</span><div class="timeline-title">墾丁青年活動中心 Check-in <a href="https://maps.app.goo.gl/81p1aPhECyPWPeJ3A" target="_blank" class="map-link">📍 導航</a></div><p style="color:var(--text-muted);">抵達傳統閩式院落園區辦理入住。</p></div></div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">07:30</span>
-                        <div class="timeline-title">歡樂啟程！</div>
-                        <p style="color:var(--text-muted);">大巴士出發，期待已久的南國度假正式開始！</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">10:00 - 11:30</span>
-                        <div class="timeline-title">屏東勝利新村漫遊</div>
-                        <p style="color:var(--text-muted);">漫步老眷村改造的文青聚落，好拍又好逛。</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">12:00 - 13:30</span>
-                        <div class="timeline-title">午餐饗宴：萬巒熊家豬腳 (萬巒本店)</div>
-                        <p style="color:var(--text-muted);">品嚐香Q有勁的在地老字號美味。<br><small>📍 萬巒鄉褒忠路156號 ｜ 📞 08-781-2521</small></p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">13:30 - 14:30</span>
-                        <div class="timeline-title">維多利亞天空之鏡飆沙體驗 <span class="tag-self-pay">自費</span></div>
-                        <p style="color:var(--text-muted);">騎乘沙灘車狂飆，拍出絕美天空倒影魔幻照片！</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">14:30 - 15:00</span>
-                        <div class="timeline-title">墾丁青年活動中心 Check-in</div>
-                        <p style="color:var(--text-muted);">抵達傳統閩式院落園區辦理入住，卸下行李。</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">15:00 ~ 自由時間</span>
-                        <div class="timeline-title">親子海灘戲水趣 ＆ 墾丁大街</div>
-                        <p style="color:var(--text-muted);">自由享受沙灘風光。晚餐請於墾丁大街自由覓食慶祝 (晚餐自理)。</p>
+                    <div class="timeline-card" style="border-left: 4px solid var(--warm-sun);">
+                        <span class="time-badge">15:00 ~</span>
+                        <div class="timeline-title">親子海灘戲水 ＆ 墾丁大街夜市</div>
+                        <p style="color:var(--text-muted); margin-bottom: 10px;">自由享受沙灘風光。晚餐請於大街自由覓食 (自理)。</p>
+                        <a href="https://www.google.com/maps/search/墾丁大街美食" target="_blank" class="action-btn" style="background:#fef08a; color:#854d0e;">
+                            🍢 點此開啟「墾丁大街美食地圖」導航
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- DAY 2 -->
         <div id="panel-day2" class="tab-panel">
             <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">08:00</span>
-                        <div class="timeline-title">晨光早餐</div>
-                        <p style="color:var(--text-muted);">於活動中心園區內享用豐盛的晨間早餐。</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">早上自由活動</span>
-                        <div class="timeline-title">園區周邊探索或水上活動 <span class="tag-self-pay">自費</span></div>
-                        <p style="color:var(--text-muted);">可以漫步情人灘、青蛙石步道，或自費衝海邊玩水上設施。</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">11:30 - 12:30</span>
-                        <div class="timeline-title">園區團圓午餐</div>
-                        <p style="color:var(--text-muted);">在園區享用豐富的中式澎湃大餐，為旅程劃下圓滿句點。</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <span class="time-badge">12:30 ~</span>
-                        <div class="timeline-title">快樂賦歸</div>
-                        <p style="color:var(--text-muted);">集合登車返回台中，中途視時間及路況彈性停靠休息站。</p>
-                    </div>
-                </div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">08:00</span><div class="timeline-title">晨光早餐</div><p style="color:var(--text-muted);">於活動中心園區內享用豐盛的晨間早餐。</p></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">早上自由活動</span><div class="timeline-title">園區周邊探索或水上活動 <span class="tag-self-pay">自費</span></div><p style="color:var(--text-muted);">可漫步青蛙石步道，或自費衝海邊玩水上設施。</p></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">11:30 - 12:30</span><div class="timeline-title">園區團圓午餐</div><p style="color:var(--text-muted);">在園區享用豐富的中式澎湃大餐。</p></div></div>
+                <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card"><span class="time-badge">12:30 ~</span><div class="timeline-title">快樂賦歸</div><p style="color:var(--text-muted);">登車返回台中，中途視時間及路況彈性停靠休息站。</p></div></div>
             </div>
         </div>
 
+        <!-- 找房間分頁 -->
         <div id="panel-rooms" class="tab-panel">
-            
             <div class="room-section">
                 <h3 class="room-section-title">🏯 穎川堂（00x系列房）</h3>
                 <div class="room-grid">
-                    <div class="room-card leader-room">
-                        <div class="room-number">穎川 008 <span>⭐ 會長房</span></div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">陳沛毅<span class="title-badge">會長</span></span>
-                            <span class="member-tag">王怡茹</span>
-                            <span class="member-tag">陳祉錡</span>
-                            <span class="member-tag">陳薇恩</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">穎川 005</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">張素蓉<span class="title-badge">校長</span></span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">穎川 007</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">周易昌<span class="title-badge">總幹事</span></span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">穎川 003</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">林宜聰<span class="title-badge">常委</span></span>
-                            <span class="member-tag">王鈺婷</span>
-                            <span class="member-tag">林秉均</span>
-                            <span class="member-tag">林芮緹</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">穎川 004</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">林杏鴛<span class="title-badge">教務主任</span></span>
-                            <span class="member-tag">鄭東雅</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">穎川 006</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">王文貴<span class="title-badge">委員</span></span>
-                            <span class="member-tag">劉怡吟</span>
-                            <span class="member-tag">王振宇</span>
-                            <span class="member-tag">王婕如</span>
-                        </div>
-                    </div>
+                    <div class="room-card leader-room"><div class="room-number">穎川 008 <span>⭐ 會長房</span></div><div class="room-names-wrap"><span class="member-tag">陳沛毅<span class="title-badge">會長</span></span><span class="member-tag">王怡茹</span><span class="member-tag">陳祉錡</span><span class="member-tag">陳薇恩</span></div></div>
+                    <div class="room-card"><div class="room-number">穎川 005</div><div class="room-names-wrap"><span class="member-tag">張素蓉<span class="title-badge">校長</span></span></div></div>
+                    <div class="room-card"><div class="room-number">穎川 007</div><div class="room-names-wrap"><span class="member-tag">周易昌<span class="title-badge">總幹事</span></span></div></div>
+                    <div class="room-card"><div class="room-number">穎川 003</div><div class="room-names-wrap"><span class="member-tag">林宜聰<span class="title-badge">常委</span></span><span class="member-tag">王鈺婷</span><span class="member-tag">林秉均</span><span class="member-tag">林芮緹</span></div></div>
+                    <div class="room-card"><div class="room-number">穎川 004</div><div class="room-names-wrap"><span class="member-tag">林杏鴛<span class="title-badge">主任</span></span><span class="member-tag">鄭東雅</span></div></div>
+                    <div class="room-card"><div class="room-number">穎川 006</div><div class="room-names-wrap"><span class="member-tag">王文貴<span class="title-badge">委員</span></span><span class="member-tag">劉怡吟</span><span class="member-tag">王振宇</span><span class="member-tag">王婕如</span></div></div>
                 </div>
             </div>
 
             <div class="room-section">
                 <h3 class="room-section-title">🏛️ 清河堂（30x系列房）</h3>
                 <div class="room-grid">
-                    <div class="room-card">
-                        <div class="room-number">清河 301</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">林義翔<span class="title-badge">副會長</span></span>
-                            <span class="member-tag">林瑛琪</span>
-                            <span class="member-tag">林禾洋</span>
-                            <span class="member-tag">林艾樂</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">清河 302</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">鮑俊宇<span class="title-badge">副會長</span></span>
-                            <span class="member-tag">雷婷</span>
-                            <span class="member-tag">鮑芯妍</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">清河 303</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">林俊男<span class="title-badge">副會長</span></span>
-                            <span class="member-tag">李巧馨</span>
-                            <span class="member-tag">林妤樺</span>
-                            <span class="member-tag">林詰穎</span>
-                            <span class="member-tag">林琦臻</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">清河 304</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">黃治凱<span class="title-badge">副會長</span></span>
-                            <span class="member-tag">粘嘉勻</span>
-                            <span class="member-tag">黃靖涵</span>
-                            <span class="member-tag">黃南寅</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">清河 305</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">林景偉<span class="title-badge">榮譽會長</span></span>
-                            <span class="member-tag">林姿鳳</span>
-                            <span class="member-tag">林宇鎮</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">清河 306</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">李治諺<span class="title-badge">輔導會長</span></span>
-                            <span class="member-tag">劉怡均</span>
-                            <span class="member-tag">李軍毅</span>
-                            <span class="member-tag">李品萱</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">清河 307</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">林瑞錫<span class="title-badge">榮譽會長</span></span>
-                            <span class="member-tag">陳婉純</span>
-                            <span class="member-tag">林巧娟</span>
-                            <span class="member-tag">林育生</span>
-                            <span class="member-tag">林科甫</span>
-                        </div>
-                    </div>
-                    <div class="room-card">
-                        <div class="room-number">清河 308</div>
-                        <div class="room-names-wrap">
-                            <span class="member-tag">林時豪<span class="title-badge">榮譽會長</span></span>
-                            <span class="member-tag">鄭家宜</span>
-                            <span class="member-tag">林宥德</span>
-                            <span class="member-tag">林禹圻</span>
-                        </div>
-                    </div>
+                    <div class="room-card"><div class="room-number">清河 301</div><div class="room-names-wrap"><span class="member-tag">林義翔<span class="title-badge">副會長</span></span><span class="member-tag">林瑛琪</span><span class="member-tag">林禾洋</span><span class="member-tag">林艾樂</span></div></div>
+                    <div class="room-card"><div class="room-number">清河 302</div><div class="room-names-wrap"><span class="member-tag">鮑俊宇<span class="title-badge">副會長</span></span><span class="member-tag">雷婷</span><span class="member-tag">鮑芯妍</span></div></div>
+                    <div class="room-card"><div class="room-number">清河 303</div><div class="room-names-wrap"><span class="member-tag">林俊男<span class="title-badge">副會長</span></span><span class="member-tag">李巧馨</span><span class="member-tag">林妤樺</span><span class="member-tag">林詰穎</span><span class="member-tag">林琦臻</span></div></div>
+                    <div class="room-card"><div class="room-number">清河 304</div><div class="room-names-wrap"><span class="member-tag">黃治凱<span class="title-badge">副會長</span></span><span class="member-tag">粘嘉勻</span><span class="member-tag">黃靖涵</span><span class="member-tag">黃南寅</span></div></div>
+                    <div class="room-card"><div class="room-number">清河 305</div><div class="room-names-wrap"><span class="member-tag">林景偉<span class="title-badge">榮譽會長</span></span><span class="member-tag">林姿鳳</span><span class="member-tag">林宇鎮</span></div></div>
+                    <div class="room-card"><div class="room-number">清河 306</div><div class="room-names-wrap"><span class="member-tag">李治諺<span class="title-badge">輔導會長</span></span><span class="member-tag">劉怡均</span><span class="member-tag">李軍毅</span><span class="member-tag">李品萱</span></div></div>
+                    <div class="room-card"><div class="room-number">清河 307</div><div class="room-names-wrap"><span class="member-tag">林瑞錫<span class="title-badge">榮譽會長</span></span><span class="member-tag">陳婉純</span><span class="member-tag">林巧娟</span><span class="member-tag">林育生</span><span class="member-tag">林科甫</span></div></div>
+                    <div class="room-card"><div class="room-number">清河 308</div><div class="room-names-wrap"><span class="member-tag">林時豪<span class="title-badge">榮譽會長</span></span><span class="member-tag">鄭家宜</span><span class="member-tag">林宥德</span><span class="member-tag">林禹圻</span></div></div>
                 </div>
             </div>
-
         </div>
 
         <div class="section-title">🎒 出發前行李互動大檢查</div>
         <div class="checklist-card">
-            <div class="checklist-group-title">🪪 核心必備證件（不可忘記！）</div>
             <div class="checklist-grid">
-                <label class="check-item"><input type="checkbox"> <span>中華民國身分證</span></label>
-                <label class="check-item"><input type="checkbox"> <span>健保卡</span></label>
+                <label class="check-item"><input type="checkbox"> <span>中華民國身分證 / 健保卡</span></label>
                 <label class="check-item"><input type="checkbox"> <span>個人常備隨身藥品</span></label>
-            </div>
-            
-            <div class="checklist-group-title">👕 墾丁玩水與換裝</div>
-            <div class="checklist-grid">
-                <label class="check-item"><input type="checkbox"> <span>舒適好走的休閒鞋</span></label>
-                <label class="check-item"><input type="checkbox"> <span>海灘拖鞋 🩴</span></label>
-                <label class="check-item"><input type="checkbox"> <span>泳裝、泳褲、泳具</span></label>
-                <label class="check-item"><input type="checkbox"> <span>海灘褲或休閒短褲</span></label>
-                <label class="check-item"><input type="checkbox"> <span>多備幾套換洗衣物</span></label>
+                <label class="check-item"><input type="checkbox"> <span>海灘拖鞋 / 舒適休閒鞋</span></label>
+                <label class="check-item"><input type="checkbox"> <span>泳裝、泳具與海灘褲</span></label>
+                <label class="check-item"><input type="checkbox"> <span>防曬乳液 / 太陽眼鏡</span></label>
+                <label class="check-item"><input type="checkbox"> <span>摺疊雨具 (以備不時之需)</span></label>
                 <label class="check-item"><input type="checkbox"> <span>防車上冷氣薄外套</span></label>
-            </div>
-
-            <div class="checklist-group-title">🧴 豔陽與氣候防護</div>
-            <div class="checklist-grid">
-                <label class="check-item"><input type="checkbox"> <span>防曬乳液 🧴</span></label>
-                <label class="check-item"><input type="checkbox"> <span>遮陽帽 / 抗UV傘</span></label>
-                <label class="check-item"><input type="checkbox"> <span>時尚太陽眼鏡 🕶️</span></label>
-                <label class="check-item"><input type="checkbox"> <span>摺疊雨具</span></label>
+                <label class="check-item"><input type="checkbox"> <span>多備幾套換洗衣物</span></label>
             </div>
         </div>
-
     </div>
 
     <script>
-        // 切換分頁控制
+        // -- 複製功能與 Toast 提示 --
+        function copyPhone(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById("toast");
+                toast.classList.add("show");
+                setTimeout(() => { toast.classList.remove("show"); }, 2500);
+            }).catch(err => {
+                console.error('複製失敗:', err);
+                alert("複製失敗，請手動選取複製！");
+            });
+        }
+
+        // -- 分頁與清單控制邏輯 --
         function switchTab(tabId) {
-            // 清除按鈕與面板狀態
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-            
-            // 啟用點選的狀態
             event.currentTarget.classList.add('active');
             document.getElementById('panel-' + tabId).classList.add('active');
         }
-
-        // 打包清單互動控制
         document.querySelectorAll('.check-item input').forEach(checkbox => {
             checkbox.addEventListener('change', function() {
-                if(this.checked) {
-                    this.parentElement.classList.add('completed');
-                } else {
-                    this.parentElement.classList.remove('completed');
-                }
+                if(this.checked) this.parentElement.classList.add('completed');
+                else this.parentElement.classList.remove('completed');
             });
         });
 
-        // 倒數計時程式碼 (目標時間：2026/5/30 早上 07:30)
+        // -- 倒數計時邏輯 --
         const targetDate = new Date('2026-05-30T07:30:00').getTime();
-
         function updateCountdown() {
             const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            if (difference < 0) {
+            const diff = targetDate - now;
+            if (diff < 0) {
                 document.getElementById('timer').innerHTML = "<b style='color:var(--warm-sun); font-size:1.2rem;'>🏝️ 快樂自強活動正熱烈進行中！ 🏝️</b>";
                 return;
             }
-
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+            document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
+            document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
         }
-
         setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        // -- 動態氣象擷取邏輯 (Open-Meteo API) --
+        async function fetchWeather() {
+            try {
+                const lat = 21.94;
+                const lon = 120.79;
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTaipei`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                const weatherMap = {
+                    0: { desc: '晴朗無雲', icon: '☀️' }, 1: { desc: '晴時多雲', icon: '🌤️' }, 2: { desc: '多雲', icon: '⛅' }, 3: { desc: '陰天', icon: '☁️' },
+                    45: { desc: '有霧', icon: '🌫️' }, 48: { desc: '霧淞', icon: '🌫️' }, 51: { desc: '毛毛雨', icon: '🌧️' }, 53: { desc: '毛毛雨', icon: '🌧️' }, 55: { desc: '毛毛雨', icon: '🌧️' },
+                    61: { desc: '小雨', icon: '☔' }, 63: { desc: '中雨', icon: '☔' }, 65: { desc: '大雨', icon: '☔' }, 80: { desc: '陣雨', icon: '🌧️' }, 81: { desc: '陣雨', icon: '🌧️' }, 82: { desc: '狂風暴雨', icon: '⛈️' }, 95: { desc: '雷陣雨', icon: '⛈️' }
+                };
+                const getWeather = (code) => weatherMap[code] || { desc: '多雲', icon: '⛅' };
+
+                const currentW = getWeather(data.current.weather_code);
+                document.getElementById('current-icon').innerText = currentW.icon;
+                document.getElementById('current-temp').innerText = Math.round(data.current.temperature_2m) + '°C';
+                document.getElementById('current-desc').innerText = `${currentW.desc} (體感 ${Math.round(data.current.apparent_temperature)}°C)`;
+
+                const times = data.daily.time;
+                const targetDates = ['2026-05-30', '2026-05-31']; 
+                
+                targetDates.forEach((targetDate, idx) => {
+                    const dateIndex = times.indexOf(targetDate);
+                    const prefix = idx === 0 ? 'day1' : 'day2';
+                    if(dateIndex !== -1) {
+                        const maxTemp = Math.round(data.daily.temperature_2m_max[dateIndex]);
+                        const minTemp = Math.round(data.daily.temperature_2m_min[dateIndex]);
+                        document.getElementById(`${prefix}-icon`).innerText = getWeather(data.daily.weather_code[dateIndex]).icon;
+                        document.getElementById(`${prefix}-pop`).innerText = `☔ ${data.daily.precipitation_probability_max[dateIndex]}%`;
+                        document.getElementById(`${prefix}-temp`).innerHTML = `<span>${maxTemp}°C</span> / ${minTemp}°C`;
+                    }
+                });
+            } catch (error) {
+                console.error('天氣連線失敗:', error);
+                document.getElementById('current-desc').innerText = '天氣資料載入失敗，請檢查網路';
+            }
+        }
+        
+        fetchWeather();
     </script>
 </body>
 </html>
