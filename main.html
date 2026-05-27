@@ -409,7 +409,7 @@
             targetPanel.classList.add('active');
             
             // 手機版切換時，畫面自動捲動至導覽列上方，體驗更好
-            if (window.innerWidth <= 200) {
+            if (window.innerWidth <= 1000) {
                 const offsetTop = document.querySelector('.tabs-nav').getBoundingClientRect().top + window.scrollY - 150;
                 window.scrollTo({ top: offsetTop, behavior: 'smooth' });
             }
