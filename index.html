@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 龍山國小家長會 - 墾丁自強活動</title>
+    <style>
+        :root {
+            --primary-ocean: #0ea5e9;
+            --dark-ocean: #0369a1;
+            --light-sky: #e0f2fe;
+            --sand-beach: #fef08a;
+            --warm-sun: #f97316;
+            --soft-cream: #fdfbfc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-island: #f4f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-island);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            background-image: radial-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #38bdf8 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 20px 80px 20px;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f4f9fa" fill-opacity="1" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,208C840,213,960,203,1080,186.7C1200,171,1320,149,1380,138.7L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
+            background-size: cover;
+        }
+
+        .badge {
+            background-color: rgba(254, 240, 138, 0.3);
+            color: var(--sand-beach);
+            border: 1px solid var(--sand-beach);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 15px;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Floating Wave Elements decoration */
+        .island-deco {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 3.5rem;
+            opacity: 0.15;
+            user-select: none;
+        }
+
+        .island-deco-left {
+            position: absolute;
+            bottom: 60px;
+            left: 20px;
+            font-size: 3rem;
+            opacity: 0.15;
+            user-select: none;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: -40px auto 0 auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Countdown Widget */
+        .countdown-card {
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .countdown-title {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .time-block {
+            min-width: 65px;
+        }
+
+        .time-num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-ocean);
+            background: var(--light-sky);
+            padding: 8px 4px;
+            border-radius: 12px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Quick Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--primary-ocean);
+        }
+
+        .info-card.accent {
+            border-left-color: var(--warm-sun);
+        }
+
+        .info-card h3 {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .info-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-box {
+            background-color: #fffbeb;
+            border: 1px dashed #fef08a;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #b45309;
+        }
+
+        .phone-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--light-sky);
+            color: var(--dark-ocean);
+            padding: 4px 12px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 5px;
+            transition: all 0.2s;
+        }
+
+        .phone-btn:hover {
+            background-color: var(--primary-ocean);
+            color: white;
+        }
+
+        /* Section Common Headers */
+        .section-title {
+            font-size: 1.3rem;
+            margin: 35px 0 20px 0;
+            color: var(--dark-ocean);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(14,165,233,0.2), transparent);
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            background: white;
+            padding: 6px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .tab-btn {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 12px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary-ocean), var(--dark-ocean));
+            color: white;
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2);
+        }
+
+        /* Timeline / Itinerary Content */
+        .itinerary-panel {
+            display: none;
+        }
+
+        .itinerary-panel.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 10px;
+            bottom: 10px;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--light-sky), var(--primary-ocean), var(--light-sky));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -24px;
+            top: 6px;
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--primary-ocean);
+            transition: all 0.3s;
+            box-shadow: 0 0 0 3px white;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background: var(--warm-sun);
+            border-color: var(--warm-sun);
+            transform: scale(1.2);
+        }
+
+        .timeline-card {
+            background: white;
+            border-radius: 18px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(0,0,0,0.01);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.06);
+        }
+
+        .time-badge {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-ocean);
+            background-color: var(--light-sky);
+            padding: 3px 10px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .timeline-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+        }
+
+        .tag-self-pay {
+            background-color: #fee2e2;
+            color: #ef4444;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 6px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Interactive Checklist Section */
+        .checklist-card {
+            background: white;
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            margin-bottom: 30px;
+        }
+
+        .checklist-group-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark-ocean);
+            margin: 18px 0 10px 0;
+            padding-bottom: 4px;
+            border-bottom: 1px dashed var(--light-sky);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .checklist-group-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-island);
+            padding: 12px 14px;
+            border-radius: 14px;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .check-item:hover {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .check-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #22c55e;
+            cursor: pointer;
+        }
+
+        .check-item span {
+            font-size: 0.92rem;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+
+        .check-item.completed {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        .check-item.completed span {
+            color: #a8a29e;
+            text-decoration: line-through;
+        }
+
+        /* Rules and Weather Grid */
+        .notice-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .notice-box {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .notice-box h4 {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-box ul {
+            padding-left: 20px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .notice-box li {
+            margin-bottom: 8px;
+        }
+
+        .notice-box li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* SVG Icon Helpers */
+        .icon {
+            width: 1.2em;
+            height: 1.2em;
+            vertical-align: middle;
+            fill: currentColor;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .countdown-timer { gap: 8px; }
+            .time-block { min-width: 55px; }
+            .time-num { font-size: 1.4rem; padding: 6px 2px; }
+            .checklist-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Decorative Top Island Elements -->
+    <div class="hero">
+        <div class="island-deco">🌴</div>
+        <div class="island-deco-left">🌊</div>
+        <span class="badge">SUMMER VIBES</span>
+        <h1>墾丁自強活動快報</h1>
+        <p>臺中市龍山國小 2026 家長會熱情相揪！</p>
+    </div>
+
+    <div class="container">
+
+        <!-- Countdown Widget -->
+        <div class="countdown-card">
+            <div class="countdown-title">
+                <svg class="icon" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                距離熱血出發還有
+            </div>
+            <div class="countdown-timer" id="timer">
+                <div class="time-block">
+                    <span class="time-num" id="days">00</span>
+                    <span class="time-label">天 Days</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-num" id="hours">00</span>
+                    <span class="time-label">時 Hours</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-num" id="minutes">00</span>
+                    <span class="time-label">分 Mins</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-num" id="seconds">00</span>
+                    <span class="time-label">秒 Secs</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Info Grid -->
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>☀️ 集合資訊</h3>
+                <p><strong>日期：</strong>2026年5月30日 (六)</p>
+                <p><strong>時間：</strong>07:10 ~ 07:30 集合</p>
+                <p><strong>地點：</strong>龍山國小校門口 (預計07:30準時發車)</p>
+                <div class="highlight-box">
+                    🍙 <strong>幸福活力早餐：</strong><br>現場發放沛毅會長熱情贊助的美味飯糰，搭配經典豆漿或奶茶！
+                </div>
+            </div>
+            <div class="info-card accent">
+                <h3>📞 美女領隊與神隊友</h3>
+                <p><strong>總指揮：</strong>張素蓉 校長</p>
+                <p><strong>執行秘書：</strong>周易昌 老師</p>
+                <p><strong>聯絡電話：</strong>0982-845-311</p>
+                <a href="tel:0982845311" class="phone-btn">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    一鍵撥號聯絡周秘書
+                </a>
+            </div>
+        </div>
+
+        <!-- Itinerary Section -->
+        <div class="section-title">
+            🏖️ 精彩精彩、行程精彩
+        </div>
+
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchDay(1)">
+                <span>🕶️ Day 1</span> 5/30 (六) 奔向南國
+            </button>
+            <button class="tab-btn" onclick="switchDay(2)">
+                <span>👙 Day 2</span> 5/31 (日) 暢玩海島
+            </button>
+        </div>
+
+        <!-- Day 1 Panel -->
+        <div id="day1" class="itinerary-panel active">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">07:30</span>
+                        <div class="timeline-title">歡樂啟程、向南出發！</div>
+                        <div class="timeline-desc">於龍山國小大集合，帶著期待的心情坐上舒適遊覽車。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">10:00 - 11:30</span>
+                        <div class="timeline-title">屏東勝利新村漫遊</div>
+                        <div class="timeline-desc">走入充滿文青氣息與歷史記憶的眷村空間，特色小店與巨型裝置超好拍！</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">12:00 - 13:30</span>
+                        <div class="timeline-title">午餐饗宴：萬巒熊家豬腳 <span style="font-size:0.8rem; color:var(--text-muted); font-weight:normal;">(萬巒本店)</span></div>
+                        <div class="timeline-desc">來到屏東必吃！香Q在地好滋味，補充滿滿膠原蛋白。<br><span style="font-size:0.85rem; color:var(--primary-ocean);">📍 萬巒鄉褒忠路156號 ｜ 📞 08-781-2521</span></div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">13:30 - 14:30</span>
+                        <div class="timeline-title">維多利亞天空之鏡飆沙體驗<span class="tag-self-pay">自費</span></div>
+                        <div class="timeline-desc">超刺激的沙灘車體驗！在絕美海灘留下飛天倒影的魔幻網美照。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">14:30 - 15:00</span>
+                        <div class="timeline-title">墾丁青年活動中心 Check-in</div>
+                        <div class="timeline-desc">抵達古色古香的經典閩式傳統建築園區，辦理入住手續、稍作休息。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">15:00 ~ 晚間</span>
+                        <div class="timeline-title">自由活動：親子海灘戲水樂 ＆ 墾丁大街</div>
+                        <div class="timeline-desc">漫步到海灘享受浪花與夕陽，晚餐在熱鬧的墾丁大街自由覓食享用在地小吃 (晚餐自理)。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 Panel -->
+        <div id="day2" class="itinerary-panel">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">08:00</span>
+                        <div class="timeline-title">美味晨光：園區早餐</div>
+                        <div class="timeline-desc">在充滿朝氣的園區中享用活力早餐，開啟美好的一天。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">早上自由時間</span>
+                        <div class="timeline-title">園區附近漫遊與水上活動趣<span class="tag-self-pay">自費</span></div>
+                        <div class="timeline-desc">可自由探訪周邊青蛙石步道、或奔向沁涼海域自費參與刺激的水上活動！</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">11:30 - 12:30</span>
+                        <div class="timeline-title">豐盛午餐：園區團圓午宴</div>
+                        <div class="timeline-desc">全體一同享用美味精緻的園區特色午餐，交流彼此這兩天的歡樂收穫。</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card">
+                        <span class="time-badge">12:30 ~</span>
+                        <div class="timeline-title">滿載回憶、平安賦歸</div>
+                        <div class="timeline-desc">午餐後整理行囊出發北返，中途將視路況與時間機動安排極佳的停靠休息點。預祝平安回到溫暖的家！</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Checklist Section -->
+        <div class="section-title">
+            🎒 行前行李互動檢查清單
+        </div>
+
+        <div class="checklist-card">
+            <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:15px; text-align:center;">點擊各品項即可輕鬆標記已放進行李箱喔！</p>
+            
+            <div class="checklist-group-title">🪪 核心必備證件</div>
+            <div class="checklist-grid">
+                <label class="check-item"><input type="checkbox"> <span>國民身分證</span></label>
+                <label class="check-item"><input type="checkbox"> <span>健保卡</span></label>
+                <label class="check-item"><input type="checkbox"> <span>少量現金、悠遊卡</span></label>
+            </div>
+
+            <div class="checklist-group-title">👕 夏日玩水穿搭</div>
+            <div class="checklist-grid">
+                <label class="check-item"><input type="checkbox"> <span>舒適好走的鞋子</span></label>
+                <label class="check-item"><input type="checkbox"> <span>海灘拖鞋 🩴</span></label>
+                <label class="check-item"><input type="checkbox"> <span>泳衣/泳褲/泳具</span></label>
+                <label class="check-item"><input type="checkbox"> <span>百搭海灘褲</span></label>
+                <label class="check-item"><input type="checkbox"> <span>換洗衣物 (多備幾套)</span></label>
+                <label class="check-item"><input type="checkbox"> <span>薄外套 (車上吹冷氣)</span></label>
+            </div>
+
+            <div class="checklist-group-title">🧴 防曬與防護</div>
+            <div class="checklist-grid">
+                <label class="check-item"><input type="checkbox"> <span>防曬乳/隔離霜</span></label>
+                <label class="check-item"><input type="checkbox"> <span>遮陽帽子 👒</span></label>
+                <label class="check-item"><input type="checkbox"> <span>陽傘/摺疊雨具</span></label>
+                <label class="check-item"><input type="checkbox"> <span>太陽眼鏡 🕶️</span></label>
+            </div>
+
+            <div class="checklist-group-title">💊 個人隨身藥品</div>
+            <div class="checklist-grid">
+                <label class="check-item"><input type="checkbox"> <span>強效暈車藥 🌀</span></label>
+                <label class="check-item"><input type="checkbox"> <span>常備感冒藥/防蚊液</span></label>
+                <label class="check-item"><input type="checkbox"> <span>個人日常特殊慢性藥</span></label>
+            </div>
+        </div>
+
+        <!-- Rules and Precautions -->
+        <div class="section-title">
+            📢 貼心溫馨大叮嚀
+        </div>
+
+        <div class="notice-container">
+            <div class="notice-box" style="border-top: 4px solid var(--warm-sun);">
+                <h4>🌦️ 天氣與環境</h4>
+                <ul>
+                    <li>目前南部天氣預報多為晴朗炎熱的好天氣，防曬與水分補充是第一要務！</li>
+                    <li>南國天候多變，包包裡還是建議放把輕便雨具以備不時之需。</li>
+                </ul>
+            </div>
+            <div class="notice-box" style="border-top: 4px solid var(--primary-ocean);">
+                <h4>🛡️ 安全與平安保障</h4>
+                <ul>
+                    <li>本活動主辦單位已貼心為所有大小團員投保完整的**旅遊平安險**，讓大家玩得安心、全無後顧之憂。</li>
+                    <li><strong>團體規範：</strong>行程中請絕對遵守領隊與導遊的引導，密切配合團體集合時間，切勿擅自脫隊以策安全。</li>
+                    <li>若遇天候不佳或其他不可抗力因素，主辦單位保留機動微調最合適行程的權利。</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Tab switching logic
+        function switchDay(dayNum) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.itinerary-panel').forEach(panel => panel.classList.remove('active'));
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById('day' + dayNum).classList.add('active');
+        }
+
+        // Interactive Checklist Event Listener
+        document.querySelectorAll('.check-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if(this.checked) {
+                    this.parentElement.classList.add('completed');
+                } else {
+                    this.parentElement.classList.add('completed');
+                    this.parentElement.classList.remove('completed');
+                }
+            });
+        });
+
+        // Countdown Timer Logic
+        const targetDate = new Date('2026-05-30T07:30:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById('timer').innerHTML = "<b style='color:var(--warm-sun); font-size:1.3rem;'>🏝️ 快樂自強活動正熱烈進行中！ 🏝️</b>";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+            document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Run immediately
+    </script>
+</body>
+</html>
