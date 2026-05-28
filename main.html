@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>2026 龍山國小家長會 - 墾丁自強活動</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -176,21 +176,20 @@
             .time-num { font-size: 1.5rem; }
             .info-grid { grid-template-columns: 1fr; gap: 12px; }
             
-            /* 將導覽列改為底部懸浮 (Bottom Navigation Bar) */
-            body { padding-bottom: 90px; } /* 預留底部空間 */
+            /* 導覽列：手機版維持在版面流中並吸附頂端，絕不浮起遮擋內容 */
             .tabs-nav {
-                position: fixed; bottom: 0; left: 0; width: 100%; margin: 0;
-                border-radius: 24px 24px 0 0; padding: 8px 12px 20px 12px; /* 適應 iOS 底部安全區 */
-                box-shadow: 0 -4px 20px rgba(0,0,0,0.08); background: rgba(255,255,255,0.98); backdrop-filter: blur(10px);
-                z-index: 999;
+                position: sticky; top: 8px; width: 100%; margin: 0 0 20px 0;
+                border-radius: 50px; padding: 6px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.06); background: rgba(255,255,255,0.98); backdrop-filter: blur(10px);
+                z-index: 100;
             }
             .tab-btn {
-                flex-direction: column; gap: 4px; padding: 8px 4px; font-size: 0.8rem; font-weight: 700;
-                border-radius: 16px; color: #94a3b8;
+                flex-direction: column; gap: 4px; padding: 10px 4px; font-size: 0.8rem; font-weight: 700;
+                border-radius: 40px; color: #94a3b8;
             }
             .tab-btn span { font-size: 1.2rem; } /* 圖示放大 */
             .tab-btn.active {
-                background: var(--light-sky); color: var(--dark-ocean); box-shadow: none;
+                background: linear-gradient(135deg, var(--primary-ocean), var(--dark-ocean)); color: white; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2);
             }
             
             .timeline-card { padding: 16px; }
@@ -256,7 +255,7 @@
                     <h3>☀️ 集合報到</h3>
                     <p><strong>5/30 (六) 07:10~07:30</strong> 於 <strong>龍山國小校門口</strong></p>
                     <div class="highlight-box" style="margin-top: 8px; padding: 10px;">
-                        🍙 沛毅會長贊助：美味飯糰＋飲品
+                        🍔 沛毅會長贊助：美味滿福堡＋飲品
                     </div>
                 </div>
                 <div class="card info-card accent" style="flex: 1;">
@@ -292,7 +291,7 @@
                     <div class="timeline-title">
                         屏東勝利新村漫遊 
                         <!-- 替換為真實 Google Maps Search URL -->
-                        <a href="https://www.google.com/maps/search/?api=1&query=屏東勝利星村創意生活園區" target="_blank" class="map-link">📍 導航</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=勝利新村" target="_blank" class="map-link">📍 導航</a>
                     </div>
                     <p style="color:var(--text-muted);">漫步老眷村改造的文青聚落，好拍又好逛。</p>
                 </div></div>
@@ -301,9 +300,9 @@
                     <span class="time-badge">12:00 - 13:30</span>
                     <div class="timeline-title">
                         午餐：萬巒熊家豬腳 
-                        <a href="https://www.google.com/maps/search/?api=1&query=熊家萬巒豬腳" target="_blank" class="map-link">📍 導航</a>
+                        <a href="https://www.google.com/maps/search/?api=1&query=熊家萬巒豬腳車城店" target="_blank" class="map-link">📍 導航</a>
                     </div>
-                    <p style="color:var(--text-muted);">屏東縣萬巒鄉褒忠路156號 ｜ 📞 08-781-2521</p>
+                    <p style="color:var(--text-muted);">屏東縣車城鄉保新路105號 ｜ 📞 08-882-5656</p>
                 </div></div>
                 
                 <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-card">
@@ -408,10 +407,12 @@
             const targetPanel = document.getElementById('panel-' + tabId);
             targetPanel.classList.add('active');
             
-            // 手機版切換時，畫面自動捲動至導覽列上方，體驗更好
+            // 手機版切換時，捲動到該分頁內容頂部（扣掉吸頂導覽列高度）
             if (window.innerWidth <= 600) {
-                const offsetTop = document.querySelector('.tabs-nav').getBoundingClientRect().top + window.scrollY - 150;
-                window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                const nav = document.querySelector('.tabs-nav');
+                const navH = nav ? nav.offsetHeight : 0;
+                const offsetTop = targetPanel.getBoundingClientRect().top + window.scrollY - navH - 24;
+                window.scrollTo({ top: Math.max(0, offsetTop), behavior: 'smooth' });
             }
         }
 
