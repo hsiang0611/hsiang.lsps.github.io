@@ -405,19 +405,40 @@
         });
 
         // -- 倒數計時邏輯 --
-        const targetDate = new Date('2026-05-30T07:30:00').getTime();
+        const startDate = new Date('2026-05-30T07:30:00').getTime(); // 出發時間
+        const returnDate = new Date('2026-05-31T17:00:00').getTime(); // 賦歸時間
+
         function updateCountdown() {
             const now = new Date().getTime();
-            const diff = targetDate - now;
-            if (diff < 0) {
-                document.getElementById('timer').innerHTML = "<b style='color:var(--warm-sun); font-size:1.2rem;'>🏝️ 快樂自強活動正熱烈進行中！ 🏝️</b>";
+            const titleElement = document.querySelector('.countdown-title');
+            const timerElement = document.getElementById('timer');
+            
+            let diff;
+
+            if (now < startDate) {
+                // 狀態 1：還沒出發，倒數至出發時間
+                diff = startDate - now;
+                titleElement.innerHTML = "⏱️ 距離大夥熱血出發還有";
+            } else if (now >= startDate && now < returnDate) {
+                // 狀態 2：已出發，改為倒數至賦歸時間
+                diff = returnDate - now;
+                titleElement.innerHTML = "⏱️ 距離快樂賦歸還有";
+            } else {
+                // 狀態 3：活動結束
+                titleElement.innerHTML = "🌟 2026 墾丁自強活動";
+                timerElement.innerHTML = "<b style='color:var(--warm-sun); font-size:1.2rem;'>🎊 活動已圓滿結束，期待下次相聚！ 🎊</b>";
                 return;
             }
-            document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
-            document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+
+            // 更新倒數數字 (若元素仍存在)
+            if (document.getElementById('days')) {
+                document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
+                document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+            }
         }
+        
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
