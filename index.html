@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0ea5e9">
+    <meta name="description" content="2026 龍山國小家長會墾丁自強活動專屬資訊頁">
     <title>2026 龍山國小家長會 - 墾丁自強活動</title>
+
+    <!-- PWA manifest (inline data URL，無需額外檔案) -->
+    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"龍山國小家長會 - 墾丁2026","short_name":"墾丁2026","start_url":".","display":"standalone","background_color":"%23f4f9fa","theme_color":"%230ea5e9","icons":[{"src":"data:image/svg%2bxml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%2280%22 font-size=%2280%22>🌴</text></svg>","sizes":"192x192","type":"image/svg+xml"}]}'>
+    <link rel="apple-touch-icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="80" font-size="80">🌴</text></svg>'>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --primary-ocean: #0ea5e9;
@@ -19,22 +26,51 @@
             --text-main: #1e293b;
             --text-muted: #64748b;
             --bg-island: #f4f9fa;
+            --card-bg: #ffffff;
+            --border-soft: rgba(0,0,0,0.05);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif;
+        /* 暗色模式 */
+        body.dark-mode {
+            --light-sky: rgba(14, 165, 233, 0.18);
+            --soft-cream: #1e293b;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --bg-island: #0f172a;
+            --card-bg: #1e293b;
+            --border-soft: rgba(255,255,255,0.08);
         }
+        body.dark-mode .countdown-card,
+        body.dark-mode .info-card,
+        body.dark-mode .timeline-card,
+        body.dark-mode .room-card,
+        body.dark-mode .checklist-card,
+        body.dark-mode .tabs-nav,
+        body.dark-mode .tips-card,
+        body.dark-mode .emergency-card,
+        body.dark-mode .notice-card,
+        body.dark-mode .search-box,
+        body.dark-mode .modal-content { background: var(--card-bg); color: var(--text-main); }
+        body.dark-mode .member-tag,
+        body.dark-mode .check-item { background: #334155; color: var(--text-main); border-color: rgba(255,255,255,0.04); }
+        body.dark-mode .check-item.completed { background: #064e3b; }
+        body.dark-mode .room-card.leader-room { background: #3f2a05; }
+        body.dark-mode .weather-card { background: linear-gradient(135deg, #422006, #1e293b); }
+        body.dark-mode .tips-card { background: linear-gradient(135deg, #064e3b, #1e293b); }
+        body.dark-mode .emergency-card { background: linear-gradient(135deg, #450a0a, #1e293b); }
+        body.dark-mode .notice-card { background: linear-gradient(135deg, #422006, #1e293b); }
+        body.dark-mode .highlight-box { background: #422006; color: #fef3c7; border-color: #b45309; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans TC', system-ui, -apple-system, sans-serif; }
 
         body {
             background-color: var(--bg-island);
             color: var(--text-main);
             line-height: 1.6;
-            padding-bottom: 60px;
+            padding-bottom: 0;
             background-image: radial-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 0);
             background-size: 24px 24px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         /* Hero 橫幅 */
@@ -60,6 +96,36 @@
             background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23f4f9fa" fill-opacity="1" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,208C840,213,960,203,1080,186.7C1200,171,1320,149,1380,138.7L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
             background-size: cover;
         }
+        body.dark-mode .hero::before {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%230f172a" fill-opacity="1" d="M0,224L60,213.3C120,203,240,181,360,181.3C480,181,600,203,720,208C840,213,960,203,1080,186.7C1200,171,1320,149,1380,138.7L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
+            background-size: cover;
+        }
+
+        /* 頂部工具列 */
+        .toolbar {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            display: flex;
+            gap: 8px;
+            z-index: 20;
+        }
+        .toolbar-btn {
+            background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.05rem;
+            backdrop-filter: blur(8px);
+            transition: transform 0.2s, background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .toolbar-btn:hover, .toolbar-btn:active { transform: scale(1.1); background: rgba(255,255,255,0.3); }
 
         .badge {
             background-color: rgba(254, 240, 138, 0.3);
@@ -77,35 +143,76 @@
 
         .hero h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
         .hero p { font-size: 1.1rem; opacity: 0.9; font-weight: 300; }
-        .island-deco { position: absolute; top: 15px; right: 20px; font-size: 3.5rem; opacity: 0.15; user-select: none; }
+        .island-deco { position: absolute; top: 15px; left: 20px; font-size: 3.5rem; opacity: 0.15; user-select: none; }
         .island-deco-left { position: absolute; bottom: 60px; left: 20px; font-size: 3rem; opacity: 0.15; user-select: none; }
 
         .container { max-width: 850px; margin: -40px auto 0 auto; padding: 0 16px; position: relative; z-index: 10; }
 
         /* 倒數計時 */
         .countdown-card {
-            background: white; border-radius: 24px; padding: 24px; text-align: center;
+            background: var(--card-bg); border-radius: 24px; padding: 24px; text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid rgba(14, 165, 233, 0.1);
         }
         .countdown-title { font-size: 1rem; color: var(--text-muted); margin-bottom: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .countdown-timer { display: flex; justify-content: center; gap: 15px; }
         .time-block { min-width: 65px; }
         .time-num { font-size: 1.8rem; font-weight: 700; color: var(--dark-ocean); background: var(--light-sky); padding: 8px 4px; border-radius: 12px; display: block; margin-bottom: 4px; }
+        body.dark-mode .time-num { color: #7dd3fc; }
         .time-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+
+        /* 智慧提醒卡 (依天氣動態生成) */
+        .tips-card {
+            background: linear-gradient(135deg, #ecfdf5, white);
+            border-radius: 20px;
+            padding: 18px 22px;
+            margin-bottom: 25px;
+            border-left: 5px solid #10b981;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .tips-card h3 { color: #047857; margin-bottom: 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 6px; }
+        body.dark-mode .tips-card h3 { color: #6ee7b7; }
+        .tips-list { list-style: none; padding: 0; margin: 0; }
+        .tips-list li { padding: 4px 0; font-size: 0.92rem; color: var(--text-main); }
+
+        /* 緊急 / 醫療資訊卡 */
+        .emergency-card {
+            background: linear-gradient(135deg, #fef2f2, white);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 25px;
+            border-left: 5px solid #ef4444;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .emergency-card h3 { color: #b91c1c; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; font-size: 1.05rem; }
+        body.dark-mode .emergency-card h3 { color: #fca5a5; }
+        .emergency-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #fecaca; gap: 10px; }
+        body.dark-mode .emergency-item { border-color: rgba(239,68,68,0.3); }
+        .emergency-item:last-child { border-bottom: none; }
+        .emergency-name { font-weight: 600; color: var(--text-main); flex: 1; min-width: 0; }
+        .emergency-name small { display: block; font-weight: 400; color: var(--text-muted); font-size: 0.78rem; margin-top: 2px; }
+        .call-btn {
+            background: #ef4444; color: white; border: none; padding: 8px 14px; border-radius: 50px;
+            font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0;
+        }
+        .call-btn.secondary { background: #f1f5f9; color: var(--text-main); }
+        body.dark-mode .call-btn.secondary { background: #334155; color: var(--text-main); }
 
         /* 快捷資訊與卡片 */
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 30px; }
-        .info-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border-left: 5px solid var(--primary-ocean); }
+        .info-card { background: var(--card-bg); border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border-left: 5px solid var(--primary-ocean); }
         .info-card.accent { border-left-color: var(--warm-sun); }
-        
+
         .weather-card { background: linear-gradient(135deg, #fffbeb, white); border-left-color: #fbbf24; }
         .weather-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; border-bottom: 1px dashed #fcd34d; padding-bottom: 10px; }
         .weather-location { font-weight: 700; color: #b45309; font-size: 1.1rem; display: flex; align-items: center; gap: 6px; }
+        body.dark-mode .weather-location { color: #fcd34d; }
         .weather-current { text-align: right; }
         .weather-temp { font-size: 1.8rem; font-weight: 900; color: var(--text-main); line-height: 1; transition: all 0.3s; }
         .weather-desc { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
-        
+
         .forecast-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.03); font-size: 0.95rem; }
+        body.dark-mode .forecast-row { border-color: rgba(255,255,255,0.05); }
         .forecast-row:last-child { border-bottom: none; padding-bottom: 0; }
         .forecast-date { color: var(--text-main); font-weight: 600; display: flex; align-items: center; gap: 6px; }
         .forecast-detail { display: flex; align-items: center; gap: 12px; }
@@ -116,26 +223,27 @@
         .info-card h3 { font-size: 1.05rem; color: var(--text-main); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         .info-card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 6px; }
         .highlight-box { background-color: #fffbeb; border: 1px dashed #fef08a; padding: 10px 14px; border-radius: 12px; margin-top: 10px; font-size: 0.9rem; color: #b45309; }
-        
+
         /* 按鈕群組 */
         .btn-group { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-        
-        .action-btn { 
-            display: inline-flex; align-items: center; gap: 6px; 
-            background-color: var(--light-sky); color: var(--dark-ocean); 
-            padding: 8px 14px; border-radius: 50px; text-decoration: none; 
-            font-size: 0.85rem; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; 
+        .action-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            background-color: var(--light-sky); color: var(--dark-ocean);
+            padding: 8px 14px; border-radius: 50px; text-decoration: none;
+            font-size: 0.85rem; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer;
         }
+        body.dark-mode .action-btn { color: #7dd3fc; }
         .action-btn:hover { background-color: var(--primary-ocean); color: white; }
         .action-btn.copy { background-color: #f1f5f9; color: var(--text-main); }
+        body.dark-mode .action-btn.copy { background-color: #334155; color: var(--text-main); }
         .action-btn.copy:hover { background-color: #e2e8f0; }
 
         /* 提示框 */
         .toast {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: rgba(30, 41, 59, 0.9); color: white; padding: 10px 20px;
+            background: rgba(30, 41, 59, 0.92); color: white; padding: 10px 20px;
             border-radius: 50px; font-size: 0.9rem; font-weight: 500;
-            opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 1000;
+            opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 3000;
         }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
@@ -149,69 +257,245 @@
         .map-link:hover { transform: scale(1.05); }
 
         /* 標籤導覽與面板 */
-        .tabs-nav { display: flex; background: white; padding: 6px; border-radius: 50px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); gap: 4px; }
+        .tabs-nav { display: flex; background: var(--card-bg); padding: 6px; border-radius: 50px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); gap: 4px; }
         .tab-btn { flex: 1; border: none; background: none; padding: 14px 10px; border-radius: 50px; font-size: 1rem; font-weight: 700; color: var(--text-muted); cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .tab-btn.active { background: linear-gradient(135deg, var(--primary-ocean), var(--dark-ocean)); color: white; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.2); }
         .tab-panel { display: none; }
         .tab-panel.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 時間軸與找房間 */
+        /* 時間軸 */
         .timeline { position: relative; padding-left: 24px; }
         .timeline::before { content: ''; position: absolute; left: 7px; top: 10px; bottom: 10px; width: 3px; background: linear-gradient(to bottom, var(--light-sky), var(--primary-ocean), var(--light-sky)); }
         .timeline-item { position: relative; margin-bottom: 24px; }
-        .timeline-dot { position: absolute; left: -24px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: white; border: 4px solid var(--primary-ocean); box-shadow: 0 0 0 3px white; }
-        .timeline-card { background: white; border-radius: 18px; padding: 18px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .timeline-dot { position: absolute; left: -24px; top: 6px; width: 16px; height: 16px; border-radius: 50%; background: var(--card-bg); border: 4px solid var(--primary-ocean); box-shadow: 0 0 0 3px var(--card-bg); }
+        .timeline-card { background: var(--card-bg); border-radius: 18px; padding: 18px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
         .time-badge { font-size: 0.85rem; font-weight: 700; color: var(--primary-ocean); background-color: var(--light-sky); padding: 3px 10px; border-radius: 50px; display: inline-block; margin-bottom: 8px; }
+        body.dark-mode .time-badge { color: #7dd3fc; }
         .timeline-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; flex-wrap: wrap;}
         .tag-self-pay { background-color: #fee2e2; color: #ef4444; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-left: 6px; }
 
+        /* 找房間 + 搜尋 */
+        .search-box {
+            display: flex; gap: 6px; margin-bottom: 22px;
+            background: var(--card-bg); border-radius: 50px; padding: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+        .search-box input {
+            flex: 1; border: none; background: transparent;
+            padding: 8px 18px; font-size: 1rem; outline: none;
+            color: var(--text-main); min-width: 0;
+        }
+        .search-btn {
+            background: linear-gradient(135deg, var(--primary-ocean), var(--dark-ocean));
+            color: white; border: none; padding: 8px 20px; border-radius: 50px;
+            cursor: pointer; font-weight: 700; font-size: 0.95rem;
+        }
+        .search-btn:active { transform: scale(0.96); }
+
         .room-section { margin-bottom: 30px; }
         .room-section-title { font-size: 1.2rem; font-weight: 800; color: var(--dark-ocean); margin: 20px 0 15px 0; display: flex; align-items: center; gap: 8px; }
+        body.dark-mode .room-section-title { color: #7dd3fc; }
         .room-section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, var(--light-sky), transparent); }
         .room-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
-        .room-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border-left: 6px solid var(--primary-ocean); transition: transform 0.2s; }
+        .room-card { background: var(--card-bg); border-radius: 20px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); border-left: 6px solid var(--primary-ocean); transition: transform 0.3s, box-shadow 0.3s; }
         .room-card:hover { transform: translateY(-2px); }
         .room-card.leader-room { border-left-color: var(--warm-sun); background: #fffbeb; }
         .room-number { font-family: 'Comfortaa', sans-serif; font-size: 1.15rem; color: var(--dark-ocean); font-weight: 700; border-bottom: 1px dashed #e2e8f0; padding-bottom: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        body.dark-mode .room-number { color: #7dd3fc; border-color: rgba(255,255,255,0.1); }
         .room-names-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-        .member-tag { background: var(--bg-island); padding: 5px 12px; border-radius: 10px; font-size: 0.92rem; color: var(--text-main); display: inline-flex; align-items: center; font-weight: 500; border: 1px solid rgba(0,0,0,0.03); }
+        .member-tag { background: var(--bg-island); padding: 5px 12px; border-radius: 10px; font-size: 0.92rem; color: var(--text-main); display: inline-flex; align-items: center; font-weight: 500; border: 1px solid rgba(0,0,0,0.03); transition: all 0.3s; }
         .title-badge { font-size: 0.75rem; background: #fef08a; color: #854d0e; padding: 1px 6px; border-radius: 4px; margin-left: 4px; font-weight: bold; }
 
+        /* 搜尋高亮 */
+        .member-tag.highlight {
+            background: var(--warm-sun) !important;
+            color: white !important;
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(249,115,22,0.4);
+        }
+        .room-card.highlight {
+            box-shadow: 0 0 0 3px var(--warm-sun), 0 10px 30px rgba(249,115,22,0.25) !important;
+            transform: translateY(-2px) !important;
+        }
+
         .section-title { font-size: 1.3rem; margin: 35px 0 20px 0; color: var(--dark-ocean); display: flex; align-items: center; gap: 10px; }
+        body.dark-mode .section-title { color: #7dd3fc; }
         .section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, rgba(14,165,233,0.2), transparent); }
-        
-        .checklist-card { background: white; border-radius: 24px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin-top: 30px; }
+
+        /* 注意事項小提醒 */
+        .notice-card {
+            background: linear-gradient(135deg, #fffbeb, white);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 25px;
+            border-left: 5px solid #f59e0b;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .notice-card h3 { color: #92400e; margin-bottom: 12px; font-size: 1.05rem; display: flex; align-items: center; gap: 6px; }
+        body.dark-mode .notice-card h3 { color: #fcd34d; }
+        .notice-list { list-style: none; padding: 0; margin: 0; }
+        .notice-list li {
+            padding: 8px 0; font-size: 0.92rem; color: var(--text-main);
+            border-bottom: 1px dashed rgba(245,158,11,0.2);
+            display: flex; gap: 8px; align-items: flex-start;
+        }
+        .notice-list li:last-child { border-bottom: none; }
+        .notice-icon { flex-shrink: 0; }
+
+        /* 行李清單 */
+        .checklist-card { background: var(--card-bg); border-radius: 24px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin-top: 30px; }
+        .checklist-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .checklist-progress { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+        .checklist-progress strong { color: #22c55e; font-size: 1.05rem; }
+        .checklist-bar { height: 6px; background: var(--bg-island); border-radius: 50px; overflow: hidden; margin-bottom: 18px; }
+        .checklist-bar-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); border-radius: 50px; width: 0%; transition: width 0.4s ease; }
         .checklist-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
         .check-item { display: flex; align-items: center; gap: 10px; background: var(--bg-island); padding: 12px 14px; border-radius: 14px; cursor: pointer; user-select: none; transition: all 0.2s; }
         .check-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #22c55e; }
         .check-item.completed { background: #f0fdf4; opacity: 0.6; }
         .check-item.completed span { text-decoration: line-through; color: #a8a29e; }
 
+        /* 分享 Modal */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            padding: 20px;
+        }
+        .modal-overlay.show { display: flex; animation: fadeIn 0.25s; }
+        .modal-content {
+            background: var(--card-bg); border-radius: 24px; padding: 30px 25px;
+            max-width: 340px; width: 100%; text-align: center;
+            position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+            animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes popIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .modal-close {
+            position: absolute; top: 14px; right: 14px;
+            background: var(--bg-island); border: none;
+            width: 34px; height: 34px; border-radius: 50%;
+            cursor: pointer; font-size: 1.1rem; color: var(--text-muted);
+        }
+        .modal-title { font-size: 1.15rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
+        .modal-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; }
+        #qrcode {
+            margin: 8px auto 16px;
+            padding: 12px; background: white;
+            border-radius: 16px; display: inline-block;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+        #qrcode svg { display: block; }
+        .modal-url {
+            font-size: 0.78rem; color: var(--text-muted);
+            background: var(--bg-island); padding: 8px 12px;
+            border-radius: 8px; word-break: break-all;
+            margin-bottom: 12px; font-family: monospace;
+        }
+
+        /* 加到主畫面提示 (iOS) */
+        .ios-install-tip {
+            background: linear-gradient(135deg, #eff6ff, white);
+            border-radius: 16px;
+            padding: 14px 18px;
+            font-size: 0.88rem;
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+            margin-bottom: 20px;
+            display: none;
+            line-height: 1.5;
+        }
+        body.dark-mode .ios-install-tip { background: linear-gradient(135deg, #1e3a8a, #1e293b); color: #93c5fd; }
+        .ios-install-tip.show { display: block; }
+
+        /* Footer 版權宣告 */
+        .site-footer {
+            margin-top: 60px;
+            padding: 30px 20px 25px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark-ocean), var(--primary-ocean));
+            color: white;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .site-footer::before {
+            content: "🌴 🌊 ⛱️ 🐠 🌅";
+            position: absolute; top: 10px; left: 0; right: 0;
+            font-size: 1.2rem; opacity: 0.15;
+            letter-spacing: 12px; text-align: center;
+        }
+        .footer-title { font-weight: 800; font-size: 1rem; margin-bottom: 8px; margin-top: 8px; }
+        .footer-info { font-size: 0.82rem; opacity: 0.85; margin-bottom: 6px; }
+        .footer-copyright {
+            font-size: 0.75rem; opacity: 0.7; margin-top: 14px;
+            padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.15);
+        }
+        .footer-copyright a { color: white; text-decoration: underline; opacity: 0.9; }
+
         @media (max-width: 480px) {
+            .hero { padding: 50px 16px 70px; }
             .hero h1 { font-size: 1.7rem; }
+            .toolbar { top: 14px; right: 14px; }
+            .toolbar-btn { width: 36px; height: 36px; font-size: 0.95rem; }
             .countdown-timer { gap: 6px; }
             .time-block { min-width: 52px; }
             .time-num { font-size: 1.4rem; }
             .checklist-grid { grid-template-columns: 1fr 1fr; }
             .info-grid { grid-template-columns: 1fr; }
+            .emergency-item { flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
 
     <!-- 複製成功提示框 -->
-    <div id="toast" class="toast">✅ 電話已複製到剪貼簿！</div>
+    <div id="toast" class="toast">✅ 已複製到剪貼簿！</div>
+
+    <!-- 分享 Modal -->
+    <div id="shareModal" class="modal-overlay" onclick="if(event.target===this)closeShareModal()">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeShareModal()">✕</button>
+            <div class="modal-title">📲 分享活動資訊</div>
+            <div class="modal-subtitle">掃描 QR Code 或複製連結傳給夥伴</div>
+            <div id="qrcode"></div>
+            <div class="modal-url" id="modalUrl"></div>
+            <div class="btn-group" style="justify-content: center;">
+                <button class="action-btn" onclick="copyLink()">📋 複製連結</button>
+                <button class="action-btn copy" onclick="nativeShare()">📤 系統分享</button>
+            </div>
+        </div>
+    </div>
 
     <div class="hero">
         <div class="island-deco">🌴</div>
         <div class="island-deco-left">🌊</div>
+
+        <!-- 頂部工具列：暗色模式 / 加入行事曆 / 分享 / 加到主畫面 -->
+        <div class="toolbar">
+            <button class="toolbar-btn" onclick="toggleDarkMode()" title="切換深淺色" aria-label="切換深淺色"><span id="darkModeIcon">🌙</span></button>
+            <button class="toolbar-btn" onclick="downloadICS()" title="加入行事曆" aria-label="加入行事曆">📅</button>
+            <button class="toolbar-btn" onclick="showShareModal()" title="分享給夥伴" aria-label="分享"><span>📤</span></button>
+            <button class="toolbar-btn" id="installBtn" onclick="installPWA()" title="加到主畫面" aria-label="加到主畫面" style="display:none;">⬇️</button>
+        </div>
+
         <span class="badge">KENTING TRIP 2026</span>
         <h1>墾丁自強活動快報</h1>
         <p>臺中市龍山國小家長會 ‧ 伴隨陽光海浪的精彩旅程</p>
     </div>
 
     <div class="container">
+
+        <!-- iOS 加到主畫面提示 -->
+        <div id="iosInstallTip" class="ios-install-tip">
+            💡 <strong>離線也能看：</strong>點下方瀏覽器的「分享 <span style="font-family:sans-serif">⎙</span>」→「加入主畫面」，沒網路也能查行程！
+            <button onclick="this.parentElement.classList.remove('show'); localStorage.setItem('iosTipDismissed','1');" style="background:none;border:none;color:#1e40af;cursor:pointer;float:right;font-size:0.85rem;font-weight:bold;">略過 ✕</button>
+        </div>
 
         <div class="countdown-card">
             <div class="countdown-title">⏱️ 距離大夥熱血出發還有</div>
@@ -223,6 +507,12 @@
             </div>
         </div>
 
+        <!-- 智慧穿搭/攜帶建議 (依即時天氣動態) -->
+        <div id="tipsCard" class="tips-card" style="display:none;">
+            <h3>💡 智慧出遊建議 <small style="font-weight:500; color:var(--text-muted); font-size:0.8rem;">(依即時天氣產生)</small></h3>
+            <ul class="tips-list" id="tipsList"></ul>
+        </div>
+
         <!-- 快捷資訊與天氣卡片 -->
         <div class="info-grid">
             <div class="info-card weather-card">
@@ -232,30 +522,25 @@
                     </div>
                     <div class="weather-current">
                         <div class="weather-temp" id="current-temp">--°C</div>
-                        <div class="weather-desc" id="current-desc">氣象局連線中...</div>
-                    </div>
-                </div>
-                
-                <div class="forecast-row">
-                    <div class="forecast-date">5/30 (六) 出發 <span id="day1-icon">⏳</span></div>
-                    <div class="forecast-detail">
-                        <span class="forecast-rain" id="day1-pop">☔ --%</span>
-                        <div class="forecast-temps" id="day1-temp"><span>--</span> / --</div>
+                        <div class="weather-desc" id="current-desc">資料載入中...</div>
                     </div>
                 </div>
                 <div class="forecast-row">
-                    <div class="forecast-date">5/31 (日) 賦歸 <span id="day2-icon">⏳</span></div>
+                    <div class="forecast-date"><span id="day1-icon">🌤️</span> 5/30 (出發日)</div>
                     <div class="forecast-detail">
-                        <span class="forecast-rain" id="day2-pop">☔ --%</span>
-                        <div class="forecast-temps" id="day2-temp"><span>--</span> / --</div>
+                        <span class="forecast-rain" id="day1-pop">--%</span>
+                        <span class="forecast-temps" id="day1-temp">--°C / --°C</span>
                     </div>
                 </div>
-                
-                <p style="font-size: 0.8rem; color: #d97706; margin-top: 10px; text-align: center; font-weight: 600;">
-                    💡 氣象資訊每次開啟自動更新 (Open-Meteo)
-                </p>
+                <div class="forecast-row">
+                    <div class="forecast-date"><span id="day2-icon">⛅</span> 5/31 (賦歸日)</div>
+                    <div class="forecast-detail">
+                        <span class="forecast-rain" id="day2-pop">--%</span>
+                        <span class="forecast-temps" id="day2-temp">--°C / --°C</span>
+                    </div>
+                </div>
             </div>
-            
+
             <div style="display: flex; flex-direction: column; gap: 16px;">
                 <div class="info-card" style="margin-bottom: 0;">
                     <h3>☀️ 集合報到</h3>
@@ -277,10 +562,35 @@
             </div>
         </div>
 
+        <!-- 緊急 / 醫療資訊 -->
+        <div class="emergency-card">
+            <h3>🚨 緊急聯絡 & 在地醫療資源</h3>
+            <div class="emergency-item">
+                <div class="emergency-name">緊急報案 <small>火警、急救、犯罪</small></div>
+                <a href="tel:119" class="call-btn">📞 119</a>
+            </div>
+            <div class="emergency-item">
+                <div class="emergency-name">警察報案 <small>失竊、糾紛</small></div>
+                <a href="tel:110" class="call-btn">📞 110</a>
+            </div>
+            <div class="emergency-item">
+                <div class="emergency-name">恆春旅遊醫院 <small>距墾丁最近的綜合醫院・24h 急診</small></div>
+                <a href="tel:088892293" class="call-btn">📞 撥打</a>
+            </div>
+            <div class="emergency-item">
+                <div class="emergency-name">墾丁青年活動中心 <small>住宿單位櫃台</small></div>
+                <a href="tel:088861221" class="call-btn">📞 撥打</a>
+            </div>
+            <div class="emergency-item">
+                <div class="emergency-name">墾丁國家公園警察 <small>遊客糾紛、走失協尋</small></div>
+                <a href="tel:088861295" class="call-btn">📞 撥打</a>
+            </div>
+        </div>
+
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('day1')">🕶️ Day 1</button>
-            <button class="tab-btn" onclick="switchTab('day2')">👙 Day 2</button>
-            <button class="tab-btn" onclick="switchTab('rooms')">🏠 找房間</button>
+            <button class="tab-btn active" onclick="switchTab('day1', this)">🕶️ Day 1</button>
+            <button class="tab-btn" onclick="switchTab('day2', this)">👙 Day 2</button>
+            <button class="tab-btn" onclick="switchTab('rooms', this)">🏠 找房間</button>
         </div>
 
         <!-- DAY 1 -->
@@ -318,6 +628,12 @@
 
         <!-- 找房間分頁 -->
         <div id="panel-rooms" class="tab-panel">
+            <!-- 房間搜尋框 -->
+            <div class="search-box">
+                <input type="text" id="roomSearchInput" placeholder="🔍 輸入姓名快速找到你的房間..." onkeydown="if(event.key==='Enter')searchRoom()" oninput="if(this.value==='')clearRoomHighlight()">
+                <button class="search-btn" onclick="searchRoom()">搜尋</button>
+            </div>
+
             <div class="room-section">
                 <h3 class="room-section-title">🏯 穎川堂（00x系列房）</h3>
                 <div class="room-grid">
@@ -345,9 +661,29 @@
             </div>
         </div>
 
+        <!-- 注意事項 / 溫馨提醒 -->
+        <div class="section-title">📌 出遊前溫馨提醒</div>
+        <div class="notice-card">
+            <h3>✨ 安心出遊小叮嚀</h3>
+            <ul class="notice-list">
+                <li><span class="notice-icon">🚌</span><span><strong>準時集合：</strong>請於 07:10 前抵達，遊覽車不等人，遲到會脫隊喔！</span></li>
+                <li><span class="notice-icon">💊</span><span><strong>暈車防備：</strong>容易暈車的家人請提前 30 分鐘服用暈車藥，並準備塑膠袋備用。</span></li>
+                <li><span class="notice-icon">🧴</span><span><strong>防曬要落實：</strong>墾丁陽光毒辣，每 2 小時補擦一次防曬乳；戲水後也要補擦。</span></li>
+                <li><span class="notice-icon">🏊</span><span><strong>戲水安全：</strong>務必在救生員可見範圍內，幼童一定有大人 1 對 1 陪同，禁止離岸 50 公尺以外。</span></li>
+                <li><span class="notice-icon">💧</span><span><strong>多補充水分：</strong>夏季易中暑，隨身備水壺；感到頭暈、無力立刻找陰涼處休息。</span></li>
+                <li><span class="notice-icon">📱</span><span><strong>互留聯絡方式：</strong>家人之間請先確認彼此手機號碼，並記下隨團聯絡人電話。</span></li>
+                <li><span class="notice-icon">🎒</span><span><strong>貴重物品：</strong>下車戲水請勿將貴重物品留在沙灘上，建議房內保管或集中託管。</span></li>
+                <li><span class="notice-icon">🌙</span><span><strong>夜遊提醒：</strong>墾丁大街人多，請務必看好孩子，約定走散時的集合點。</span></li>
+            </ul>
+        </div>
+
         <div class="section-title">🎒 出發前行李互動大檢查</div>
         <div class="checklist-card">
-            <!-- 加入 ID 供 localStorage 辨識 -->
+            <div class="checklist-header">
+                <div style="font-size:0.95rem; color:var(--text-muted); font-weight:600;">點擊勾選，自動為你記憶 📝</div>
+                <div class="checklist-progress"><strong id="progressCount">0</strong> / <span id="progressTotal">9</span> 項已完成</div>
+            </div>
+            <div class="checklist-bar"><div class="checklist-bar-fill" id="progressBar"></div></div>
             <div class="checklist-grid">
                 <label class="check-item"><input type="checkbox" id="chk-idcard"> <span>中華民國身分證 / 健保卡</span></label>
                 <label class="check-item"><input type="checkbox" id="chk-meds"> <span>個人常備隨身藥品</span></label>
@@ -362,76 +698,117 @@
         </div>
     </div>
 
+    <!-- 版權宣告 Footer -->
+    <footer class="site-footer">
+        <div class="footer-title">🌴 2026 臺中市龍山國小家長會 ‧ 墾丁自強活動</div>
+        <div class="footer-info">本資訊頁僅供本會成員內部使用，請勿轉貼或外流。</div>
+        <div class="footer-info">活動承辦：龍山國小家長會 ‧ 聯絡人：周易昌 老師</div>
+        <div class="footer-copyright">
+            © 2026 臺中市龍山國小家長會 All Rights Reserved.<br>
+            版權所有 ‧ 禁止任何形式之轉載與商業使用<br>
+            <span style="opacity:0.6;">Crafted with 🌊 for Longshan PTA Family</span>
+        </div>
+    </footer>
+
     <script>
-        // -- 複製功能與 Toast 提示 --
+        /* ============================================
+         *  2026 龍山國小家長會 - 墾丁自強活動
+         *  © 2026 臺中市龍山國小家長會 All Rights Reserved.
+         *  本程式碼僅供本會內部使用，禁止轉載、商業使用或修改後再發布。
+         * ============================================ */
+
+        // === 通用 Toast ===
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => toast.classList.remove("show"), 2500);
+        }
+
+        // === 複製功能 ===
         function copyPhone(text) {
             navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById("toast");
-                toast.classList.add("show");
-                setTimeout(() => { toast.classList.remove("show"); }, 2500);
-            }).catch(err => {
-                console.error('複製失敗:', err);
+                showToast("✅ 電話已複製到剪貼簿！");
+            }).catch(() => {
                 alert("複製失敗，請手動選取複製！");
             });
         }
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                showToast("✅ 連結已複製到剪貼簿！");
+            }).catch(() => alert("複製失敗，請手動複製網址列"));
+        }
 
-        // -- 分頁控制邏輯 --
-        function switchTab(tabId) {
+        // === 分頁控制 ===
+        function switchTab(tabId, btnElement) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            (btnElement || event.currentTarget).classList.add('active');
             document.getElementById('panel-' + tabId).classList.add('active');
         }
 
-        // -- 行李清單 localStorage 記憶功能 --
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.check-item input[type="checkbox"]').forEach(checkbox => {
-                // 1. 網頁載入時，讀取並還原先前的勾選狀態
-                const savedState = localStorage.getItem(checkbox.id);
-                if (savedState === 'true') {
-                    checkbox.checked = true;
-                    checkbox.parentElement.classList.add('completed');
-                }
+        // === 行李清單 localStorage 記憶 + 進度條 ===
+        function updateChecklistProgress() {
+            const checkboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('.check-item input[type="checkbox"]:checked').length;
+            const pct = total ? (checked / total) * 100 : 0;
+            document.getElementById('progressCount').textContent = checked;
+            document.getElementById('progressTotal').textContent = total;
+            document.getElementById('progressBar').style.width = pct + '%';
+        }
 
-                // 2. 監聽勾選變更，並將狀態存入 localStorage
-                checkbox.addEventListener('change', function() {
-                    if (this.checked) {
-                        this.parentElement.classList.add('completed');
-                    } else {
-                        this.parentElement.classList.remove('completed');
-                    }
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+                if (localStorage.getItem(cb.id) === 'true') {
+                    cb.checked = true;
+                    cb.parentElement.classList.add('completed');
+                }
+                cb.addEventListener('change', function() {
+                    this.parentElement.classList.toggle('completed', this.checked);
                     localStorage.setItem(this.id, this.checked);
+                    updateChecklistProgress();
                 });
             });
+            updateChecklistProgress();
+
+            // 還原暗色模式
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeIcon').textContent = '☀️';
+            }
+
+            // iOS 加到主畫面提示 (僅 Safari、未安裝、未略過)
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const isStandalone = window.navigator.standalone === true;
+            if (isIOS && !isStandalone && !localStorage.getItem('iosTipDismissed')) {
+                document.getElementById('iosInstallTip').classList.add('show');
+            }
         });
 
-        // -- 倒數計時邏輯 --
-        const startDate = new Date('2026-05-30T07:30:00').getTime(); // 出發時間
-        const returnDate = new Date('2026-05-31T17:00:00').getTime(); // 賦歸時間
+        // === 倒數計時 ===
+        const startDate = new Date('2026-05-30T07:30:00').getTime();
+        const returnDate = new Date('2026-05-31T17:00:00').getTime();
 
         function updateCountdown() {
             const now = new Date().getTime();
             const titleElement = document.querySelector('.countdown-title');
             const timerElement = document.getElementById('timer');
-            
             let diff;
 
             if (now < startDate) {
-                // 狀態 1：還沒出發，倒數至出發時間
                 diff = startDate - now;
                 titleElement.innerHTML = "⏱️ 距離大夥熱血出發還有";
             } else if (now >= startDate && now < returnDate) {
-                // 狀態 2：已出發，改為倒數至賦歸時間
                 diff = returnDate - now;
                 titleElement.innerHTML = "⏱️ 距離快樂賦歸還有";
             } else {
-                // 狀態 3：活動結束
                 titleElement.innerHTML = "🌟 2026 墾丁自強活動";
                 timerElement.innerHTML = "<b style='color:var(--warm-sun); font-size:1.2rem;'>🎊 活動已圓滿結束，期待下次相聚！ 🎊</b>";
                 return;
             }
 
-            // 更新倒數數字 (若元素仍存在)
             if (document.getElementById('days')) {
                 document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
                 document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
@@ -439,20 +816,17 @@
                 document.getElementById('seconds').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
             }
         }
-        
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // -- 動態氣象擷取邏輯 (Open-Meteo API) --
+        // === 動態氣象 (Open-Meteo) + 智慧建議 ===
         async function fetchWeather() {
             try {
-                const lat = 21.94;
-                const lon = 120.79;
+                const lat = 21.94, lon = 120.79;
                 const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTaipei`;
-                
                 const response = await fetch(url);
                 const data = await response.json();
-                
+
                 const weatherMap = {
                     0: { desc: '晴朗無雲', icon: '☀️' }, 1: { desc: '晴時多雲', icon: '🌤️' }, 2: { desc: '多雲', icon: '⛅' }, 3: { desc: '陰天', icon: '☁️' },
                     45: { desc: '有霧', icon: '🌫️' }, 48: { desc: '霧淞', icon: '🌫️' }, 51: { desc: '毛毛雨', icon: '🌧️' }, 53: { desc: '毛毛雨', icon: '🌧️' }, 55: { desc: '毛毛雨', icon: '🌧️' },
@@ -466,26 +840,580 @@
                 document.getElementById('current-desc').innerText = `${currentW.desc} (體感 ${Math.round(data.current.apparent_temperature)}°C)`;
 
                 const times = data.daily.time;
-                const targetDates = ['2026-05-30', '2026-05-31']; 
-                
+                const targetDates = ['2026-05-30', '2026-05-31'];
+                const summary = { maxPop: 0, maxTemp: -Infinity, minTemp: Infinity, codes: [] };
+
                 targetDates.forEach((targetDate, idx) => {
                     const dateIndex = times.indexOf(targetDate);
                     const prefix = idx === 0 ? 'day1' : 'day2';
-                    if(dateIndex !== -1) {
+                    if (dateIndex !== -1) {
                         const maxTemp = Math.round(data.daily.temperature_2m_max[dateIndex]);
                         const minTemp = Math.round(data.daily.temperature_2m_min[dateIndex]);
-                        document.getElementById(`${prefix}-icon`).innerText = getWeather(data.daily.weather_code[dateIndex]).icon;
-                        document.getElementById(`${prefix}-pop`).innerText = `☔ ${data.daily.precipitation_probability_max[dateIndex]}%`;
+                        const pop = data.daily.precipitation_probability_max[dateIndex];
+                        const code = data.daily.weather_code[dateIndex];
+                        document.getElementById(`${prefix}-icon`).innerText = getWeather(code).icon;
+                        document.getElementById(`${prefix}-pop`).innerText = `☔ ${pop}%`;
                         document.getElementById(`${prefix}-temp`).innerHTML = `<span>${maxTemp}°C</span> / ${minTemp}°C`;
+                        summary.maxPop = Math.max(summary.maxPop, pop);
+                        summary.maxTemp = Math.max(summary.maxTemp, maxTemp);
+                        summary.minTemp = Math.min(summary.minTemp, minTemp);
+                        summary.codes.push(code);
                     }
                 });
+
+                generateSmartTips(summary);
             } catch (error) {
                 console.error('天氣連線失敗:', error);
                 document.getElementById('current-desc').innerText = '天氣資料載入失敗，請檢查網路';
             }
         }
-        
+
+        function generateSmartTips(s) {
+            const tips = [];
+            if (s.maxPop >= 60) tips.push('☔ 兩天降雨機率高達 <b>' + s.maxPop + '%</b>，雨具務必準備好，戶外行程記得備案');
+            else if (s.maxPop >= 30) tips.push('🌦️ 可能短暫陣雨 (降雨機率 ' + s.maxPop + '%)，建議塞一把摺疊傘在包裡');
+            else tips.push('☀️ 降雨機率低 (' + s.maxPop + '%)，可放心安排沙灘戲水與戶外活動');
+
+            if (s.maxTemp >= 32) {
+                tips.push('🥵 高溫 ' + s.maxTemp + '°C 提醒：請加強防曬，每 2 小時補擦防曬乳');
+                tips.push('💧 隨身攜帶水壺多補水，留意小朋友避免中暑');
+            } else if (s.maxTemp >= 28) {
+                tips.push('🌡️ 白天約 ' + s.maxTemp + '°C，記得防曬與補水');
+            }
+
+            if (s.minTemp <= 22) tips.push('🧥 夜晚 / 早晨低溫 ' + s.minTemp + '°C，準備薄外套保暖');
+            if (s.codes.some(c => c >= 80)) tips.push('⛈️ 預報顯示可能有陣雨或雷雨，戲水請留意天候變化');
+
+            const list = document.getElementById('tipsList');
+            list.innerHTML = tips.map(t => '<li>' + t + '</li>').join('');
+            document.getElementById('tipsCard').style.display = 'block';
+        }
         fetchWeather();
+
+        // === 暗色模式切換 ===
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            document.getElementById('darkModeIcon').textContent = isDark ? '☀️' : '🌙';
+        }
+
+        // === 房間搜尋 ===
+        function clearRoomHighlight() {
+            document.querySelectorAll('.member-tag.highlight, .room-card.highlight').forEach(el => el.classList.remove('highlight'));
+        }
+        function searchRoom() {
+            const input = document.getElementById('roomSearchInput');
+            const query = input.value.trim();
+            clearRoomHighlight();
+            if (!query) return;
+
+            // 切到「找房間」分頁
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            const roomBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.includes('找房間'));
+            if (roomBtn) roomBtn.classList.add('active');
+            document.getElementById('panel-rooms').classList.add('active');
+
+            const tags = document.querySelectorAll('#panel-rooms .member-tag');
+            let firstCard = null, count = 0;
+            tags.forEach(tag => {
+                // 取純名字 (排除 title-badge 文字干擾)
+                const nameOnly = tag.childNodes[0] && tag.childNodes[0].nodeType === 3 ? tag.childNodes[0].textContent.trim() : tag.textContent;
+                if (nameOnly.includes(query) || tag.textContent.includes(query)) {
+                    tag.classList.add('highlight');
+                    const card = tag.closest('.room-card');
+                    card.classList.add('highlight');
+                    if (!firstCard) firstCard = card;
+                    count++;
+                }
+            });
+
+            if (firstCard) {
+                setTimeout(() => firstCard.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+                showToast(`🎯 找到 ${count} 筆「${query}」的結果！`);
+            } else {
+                showToast(`😅 找不到「${query}」，請確認姓名`);
+            }
+        }
+
+        // === 加入行事曆 (ICS) ===
+        function downloadICS() {
+            const dtstamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+            const ics = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Longshan PTA//Kenting 2026//ZH',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'BEGIN:VTIMEZONE',
+                'TZID:Asia/Taipei',
+                'BEGIN:STANDARD',
+                'DTSTART:19700101T000000',
+                'TZOFFSETFROM:+0800',
+                'TZOFFSETTO:+0800',
+                'TZNAME:CST',
+                'END:STANDARD',
+                'END:VTIMEZONE',
+                'BEGIN:VEVENT',
+                'UID:kenting-2026-meet@longshan.tw',
+                'DTSTAMP:' + dtstamp,
+                'DTSTART;TZID=Asia/Taipei:20260530T071000',
+                'DTEND;TZID=Asia/Taipei:20260530T073000',
+                'SUMMARY:🌴 墾丁自強活動 - 集合報到',
+                'LOCATION:臺中市龍山國小校門口',
+                'DESCRIPTION:07:10~07:30 集合報到，準時出發前往墾丁！會長贊助滿福堡+飲品。聯絡人：周易昌 0982-845-311',
+                'BEGIN:VALARM',
+                'TRIGGER:-PT30M',
+                'ACTION:DISPLAY',
+                'DESCRIPTION:30 分鐘後集合出發',
+                'END:VALARM',
+                'BEGIN:VALARM',
+                'TRIGGER:-PT12H',
+                'ACTION:DISPLAY',
+                'DESCRIPTION:明早 07:10 前往龍山國小集合',
+                'END:VALARM',
+                'END:VEVENT',
+                'BEGIN:VEVENT',
+                'UID:kenting-2026-trip@longshan.tw',
+                'DTSTAMP:' + dtstamp,
+                'DTSTART;TZID=Asia/Taipei:20260530T073000',
+                'DTEND;TZID=Asia/Taipei:20260531T170000',
+                'SUMMARY:🏖️ 墾丁兩天一夜活動進行中',
+                'LOCATION:墾丁青年活動中心',
+                'DESCRIPTION:臺中市龍山國小家長會 2026 自強活動',
+                'END:VEVENT',
+                'BEGIN:VEVENT',
+                'UID:kenting-2026-return@longshan.tw',
+                'DTSTAMP:' + dtstamp,
+                'DTSTART;TZID=Asia/Taipei:20260531T123000',
+                'DTEND;TZID=Asia/Taipei:20260531T170000',
+                'SUMMARY:🚌 墾丁活動 - 啟程賦歸',
+                'LOCATION:墾丁青年活動中心',
+                'DESCRIPTION:登車返回台中',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+
+            const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '龍山國小家長會_墾丁2026.ics';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('📅 行程已下載！請開啟以加入行事曆');
+        }
+
+        // === 分享 (Web Share + QR Code) ===
+        function showShareModal() {
+            const url = window.location.href;
+            document.getElementById('modalUrl').textContent = url;
+            const qrEl = document.getElementById('qrcode');
+            qrEl.innerHTML = '';
+            qrEl.appendChild(generateQRCode(url, 200));
+            document.getElementById('shareModal').classList.add('show');
+        }
+        function closeShareModal() {
+            document.getElementById('shareModal').classList.remove('show');
+        }
+        async function nativeShare() {
+            const shareData = {
+                title: '2026 龍山國小家長會 - 墾丁自強活動',
+                text: '一起去墾丁玩！活動資訊都在這裡 👉',
+                url: window.location.href
+            };
+            if (navigator.share) {
+                try { await navigator.share(shareData); } catch (e) { /* 使用者取消 */ }
+            } else {
+                copyLink();
+            }
+        }
+
+        // === PWA 安裝 ===
+        let deferredInstallPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            document.getElementById('installBtn').style.display = 'flex';
+        });
+        function installPWA() {
+            if (deferredInstallPrompt) {
+                deferredInstallPrompt.prompt();
+                deferredInstallPrompt.userChoice.then(() => {
+                    deferredInstallPrompt = null;
+                    document.getElementById('installBtn').style.display = 'none';
+                });
+            } else {
+                showToast('📱 請點瀏覽器分享 → 加入主畫面');
+            }
+        }
+
+        // ============================================
+        //  輕量 QR Code 產生器 (內嵌實作，無需外部 JS 庫)
+        //  改編自 Project Nayuki 的 QR Code generator (MIT)
+        //  完整版請見：https://www.nayuki.io/page/qr-code-generator-library
+        // ============================================
+        function generateQRCode(text, size) {
+            // 簡化版 QR Code 產生器 - 使用 Byte mode, ECC level M
+            const qr = qrEncode(text);
+            const modules = qr.modules;
+            const n = modules.length;
+            const cell = Math.floor(size / (n + 8));
+            const margin = cell * 4;
+            const svgSize = cell * n + margin * 2;
+            const ns = 'http://www.w3.org/2000/svg';
+            const svg = document.createElementNS(ns, 'svg');
+            svg.setAttribute('xmlns', ns);
+            svg.setAttribute('viewBox', `0 0 ${svgSize} ${svgSize}`);
+            svg.setAttribute('width', svgSize);
+            svg.setAttribute('height', svgSize);
+            const bg = document.createElementNS(ns, 'rect');
+            bg.setAttribute('width', svgSize); bg.setAttribute('height', svgSize); bg.setAttribute('fill', '#ffffff');
+            svg.appendChild(bg);
+            let path = '';
+            for (let y = 0; y < n; y++) {
+                for (let x = 0; x < n; x++) {
+                    if (modules[y][x]) {
+                        path += `M${margin + x * cell},${margin + y * cell}h${cell}v${cell}h-${cell}z `;
+                    }
+                }
+            }
+            const p = document.createElementNS(ns, 'path');
+            p.setAttribute('d', path);
+            p.setAttribute('fill', '#0369a1');
+            svg.appendChild(p);
+            return svg;
+        }
+
+        // QR Code 編碼核心（精簡版，支援 byte mode，自動選 version + ECC M）
+        function qrEncode(text) {
+            const data = new TextEncoder().encode(text);
+            // 嘗試 version 1~15，找到能容納資料的最小版本（ECC level M）
+            // ECC M 各 version 的資料容量（byte mode）對照表（簡化）
+            const capacity = [14,26,42,62,84,106,122,152,180,213,251,287,331,362,412];
+            let version = -1;
+            for (let v = 0; v < capacity.length; v++) {
+                if (data.length + 2 <= capacity[v]) { version = v + 1; break; }
+            }
+            if (version === -1) throw new Error('資料過長');
+
+            return buildQR(data, version);
+        }
+
+        function buildQR(data, version) {
+            const size = version * 4 + 17;
+            const modules = Array.from({length: size}, () => new Array(size).fill(null));
+            const isFunction = Array.from({length: size}, () => new Array(size).fill(false));
+
+            // 1. 繪製定位圖案、對齊圖案、時序圖案、格式資訊位
+            drawFunctionPatterns(modules, isFunction, version, size);
+
+            // 2. 編碼資料 (byte mode)
+            const ecc = 'M';
+            const eccCodewords = getECCCount(version, ecc);
+            const totalCodewords = getRawDataModules(version) >>> 3;
+            const dataCodewords = totalCodewords - eccCodewords;
+
+            // bit stream: mode (4 bits = 0100) + length + data + terminator
+            const bits = [];
+            appendBits(bits, 0b0100, 4); // byte mode
+            const lenBits = version < 10 ? 8 : 16;
+            appendBits(bits, data.length, lenBits);
+            for (const b of data) appendBits(bits, b, 8);
+
+            // terminator + padding
+            const dataBitsCapacity = dataCodewords * 8;
+            for (let i = 0; i < 4 && bits.length < dataBitsCapacity; i++) bits.push(0);
+            while (bits.length % 8 !== 0) bits.push(0);
+            const padBytes = [0xEC, 0x11];
+            for (let i = 0; bits.length < dataBitsCapacity; i++) appendBits(bits, padBytes[i % 2], 8);
+
+            const dataBytes = new Uint8Array(dataCodewords);
+            for (let i = 0; i < dataCodewords; i++) {
+                let b = 0;
+                for (let j = 0; j < 8; j++) b = (b << 1) | bits[i * 8 + j];
+                dataBytes[i] = b;
+            }
+
+            // Reed-Solomon ECC
+            const allCodewords = computeECC(dataBytes, eccCodewords, version, ecc, totalCodewords);
+
+            // 3. 將 codewords 寫入 module 矩陣 (zig-zag)
+            placeCodewords(modules, isFunction, allCodewords, size);
+
+            // 4. mask + format info
+            const { maskedModules, mask } = applyBestMask(modules, isFunction, size);
+            drawFormatBits(maskedModules, isFunction, ecc, mask, size);
+
+            // 5. version info (version >= 7)
+            if (version >= 7) drawVersionBits(maskedModules, version, size);
+
+            return { modules: maskedModules, size };
+        }
+
+        function appendBits(bits, val, n) {
+            for (let i = n - 1; i >= 0; i--) bits.push((val >>> i) & 1);
+        }
+
+        function drawFunctionPatterns(modules, isFn, version, size) {
+            // Timing patterns
+            for (let i = 0; i < size; i++) {
+                setFn(modules, isFn, 6, i, i % 2 === 0);
+                setFn(modules, isFn, i, 6, i % 2 === 0);
+            }
+            // Three finder patterns + separators
+            drawFinder(modules, isFn, 0, 0);
+            drawFinder(modules, isFn, size - 7, 0);
+            drawFinder(modules, isFn, 0, size - 7);
+
+            // Alignment patterns
+            const alignPositions = getAlignmentPatternPositions(version);
+            const numAlign = alignPositions.length;
+            for (let i = 0; i < numAlign; i++) {
+                for (let j = 0; j < numAlign; j++) {
+                    if ((i === 0 && j === 0) || (i === 0 && j === numAlign - 1) || (i === numAlign - 1 && j === 0)) continue;
+                    drawAlignment(modules, isFn, alignPositions[i], alignPositions[j]);
+                }
+            }
+
+            // Reserve format info area (will be filled later)
+            for (let i = 0; i < 9; i++) setFn(modules, isFn, 8, i, false);
+            for (let i = 0; i < 8; i++) setFn(modules, isFn, i, 8, false);
+            for (let i = size - 8; i < size; i++) { setFn(modules, isFn, 8, i, false); setFn(modules, isFn, i, 8, false); }
+            setFn(modules, isFn, size - 8, 8, true); // dark module
+
+            if (version >= 7) {
+                for (let i = 0; i < 6; i++) for (let j = 0; j < 3; j++) {
+                    setFn(modules, isFn, size - 11 + j, i, false);
+                    setFn(modules, isFn, i, size - 11 + j, false);
+                }
+            }
+        }
+
+        function setFn(modules, isFn, x, y, val) {
+            modules[y][x] = val;
+            isFn[y][x] = true;
+        }
+
+        function drawFinder(modules, isFn, x, y) {
+            for (let dy = -1; dy <= 7; dy++) {
+                for (let dx = -1; dx <= 7; dx++) {
+                    const xx = x + dx, yy = y + dy;
+                    if (xx < 0 || xx >= modules.length || yy < 0 || yy >= modules.length) continue;
+                    const d = Math.max(Math.abs(dx - 3), Math.abs(dy - 3));
+                    setFn(modules, isFn, xx, yy, d !== 2 && d !== 4);
+                }
+            }
+        }
+
+        function drawAlignment(modules, isFn, cx, cy) {
+            for (let dy = -2; dy <= 2; dy++) {
+                for (let dx = -2; dx <= 2; dx++) {
+                    const d = Math.max(Math.abs(dx), Math.abs(dy));
+                    setFn(modules, isFn, cx + dx, cy + dy, d !== 1);
+                }
+            }
+        }
+
+        function getAlignmentPatternPositions(version) {
+            if (version === 1) return [];
+            const numAlign = Math.floor(version / 7) + 2;
+            const step = (version === 32) ? 26 : Math.ceil((version * 4 + 4) / (numAlign * 2 - 2)) * 2;
+            const result = [6];
+            for (let pos = version * 4 + 10 - (numAlign - 2) * step; result.length < numAlign; pos += step) result.push(pos);
+            return result;
+        }
+
+        function getRawDataModules(version) {
+            let result = (16 * version + 128) * version + 64;
+            if (version >= 2) {
+                const numAlign = Math.floor(version / 7) + 2;
+                result -= (25 * numAlign - 10) * numAlign - 55;
+                if (version >= 7) result -= 36;
+            }
+            return result;
+        }
+
+        function getECCCount(version, ecc) {
+            // ECC M 對應的 ECC codewords 數量表（version 1~15）
+            const table = [10,16,26,36,48,64,72,88,110,130,150,176,198,216,240];
+            return table[version - 1];
+        }
+
+        function getNumBlocks(version, ecc) {
+            // ECC M version 1~15 的 block 數量
+            const table = [1,1,1,2,2,4,4,4,5,5,5,8,9,9,10];
+            return table[version - 1];
+        }
+
+        function computeECC(dataBytes, eccCodewords, version, ecc, totalCodewords) {
+            const numBlocks = getNumBlocks(version, ecc);
+            const eccPerBlock = eccCodewords / numBlocks;
+            const shortBlockLen = Math.floor(totalCodewords / numBlocks);
+            const numShortBlocks = numBlocks - (totalCodewords % numBlocks);
+
+            const blocks = [];
+            let offset = 0;
+            for (let i = 0; i < numBlocks; i++) {
+                const dataLen = shortBlockLen - eccPerBlock + (i < numShortBlocks ? 0 : 1);
+                const block = Array.from(dataBytes.slice(offset, offset + dataLen));
+                offset += dataLen;
+                const ecc = reedSolomonComputeRemainder(block, eccPerBlock);
+                blocks.push({ data: block, ecc });
+            }
+
+            // Interleave
+            const result = [];
+            const maxDataLen = Math.max(...blocks.map(b => b.data.length));
+            for (let i = 0; i < maxDataLen; i++) {
+                for (const b of blocks) if (i < b.data.length) result.push(b.data[i]);
+            }
+            for (let i = 0; i < eccPerBlock; i++) {
+                for (const b of blocks) result.push(b.ecc[i]);
+            }
+            return result;
+        }
+
+        function reedSolomonComputeRemainder(data, degree) {
+            const generator = reedSolomonGenerator(degree);
+            const result = new Array(degree).fill(0);
+            for (const b of data) {
+                const factor = b ^ result.shift();
+                result.push(0);
+                for (let i = 0; i < degree; i++) result[i] ^= gfMul(generator[i], factor);
+            }
+            return result;
+        }
+
+        function reedSolomonGenerator(degree) {
+            const result = new Array(degree).fill(0);
+            result[degree - 1] = 1;
+            let root = 1;
+            for (let i = 0; i < degree; i++) {
+                for (let j = 0; j < degree; j++) {
+                    result[j] = gfMul(result[j], root);
+                    if (j + 1 < degree) result[j] ^= result[j + 1];
+                }
+                root = gfMul(root, 2);
+            }
+            return result;
+        }
+
+        function gfMul(x, y) {
+            let z = 0;
+            for (let i = 7; i >= 0; i--) {
+                z = (z << 1) ^ ((z >>> 7) * 0x11D);
+                z ^= ((y >>> i) & 1) * x;
+            }
+            return z & 0xFF;
+        }
+
+        function placeCodewords(modules, isFn, codewords, size) {
+            let i = 0;
+            for (let right = size - 1; right >= 1; right -= 2) {
+                if (right === 6) right = 5;
+                for (let vert = 0; vert < size; vert++) {
+                    for (let j = 0; j < 2; j++) {
+                        const x = right - j;
+                        const upward = ((right + 1) & 2) === 0;
+                        const y = upward ? size - 1 - vert : vert;
+                        if (!isFn[y][x] && i < codewords.length * 8) {
+                            modules[y][x] = ((codewords[i >>> 3] >>> (7 - (i & 7))) & 1) !== 0;
+                            i++;
+                        }
+                    }
+                }
+            }
+        }
+
+        function applyMaskPattern(modules, isFn, mask, size) {
+            const result = modules.map(row => row.slice());
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    if (isFn[y][x]) continue;
+                    let invert;
+                    switch (mask) {
+                        case 0: invert = (x + y) % 2 === 0; break;
+                        case 1: invert = y % 2 === 0; break;
+                        case 2: invert = x % 3 === 0; break;
+                        case 3: invert = (x + y) % 3 === 0; break;
+                        case 4: invert = (Math.floor(x / 3) + Math.floor(y / 2)) % 2 === 0; break;
+                        case 5: invert = (x * y) % 2 + (x * y) % 3 === 0; break;
+                        case 6: invert = ((x * y) % 2 + (x * y) % 3) % 2 === 0; break;
+                        case 7: invert = ((x + y) % 2 + (x * y) % 3) % 2 === 0; break;
+                    }
+                    if (invert) result[y][x] = !result[y][x];
+                }
+            }
+            return result;
+        }
+
+        function applyBestMask(modules, isFn, size) {
+            let bestMask = 0, bestScore = Infinity, bestModules = modules;
+            for (let m = 0; m < 8; m++) {
+                const masked = applyMaskPattern(modules, isFn, m, size);
+                // 寫入暫時 format bits 用於評分
+                drawFormatBits(masked, isFn, 'M', m, size);
+                const score = computePenalty(masked, size);
+                if (score < bestScore) { bestScore = score; bestMask = m; bestModules = masked; }
+            }
+            return { maskedModules: bestModules, mask: bestMask };
+        }
+
+        function drawFormatBits(modules, isFn, ecc, mask, size) {
+            // ECC level bits: L=01, M=00, Q=11, H=10
+            const eccBits = { L: 1, M: 0, Q: 3, H: 2 }[ecc];
+            const data = (eccBits << 3) | mask;
+            let rem = data;
+            for (let i = 0; i < 10; i++) rem = (rem << 1) ^ ((rem >>> 9) * 0x537);
+            const bits = ((data << 10) | rem) ^ 0x5412;
+            // 寫入兩個位置
+            for (let i = 0; i <= 5; i++) modules[8][i] = ((bits >>> i) & 1) !== 0;
+            modules[8][7] = ((bits >>> 6) & 1) !== 0;
+            modules[8][8] = ((bits >>> 7) & 1) !== 0;
+            modules[7][8] = ((bits >>> 8) & 1) !== 0;
+            for (let i = 9; i < 15; i++) modules[14 - i][8] = ((bits >>> i) & 1) !== 0;
+
+            for (let i = 0; i < 8; i++) modules[size - 1 - i][8] = ((bits >>> i) & 1) !== 0;
+            for (let i = 8; i < 15; i++) modules[8][size - 15 + i] = ((bits >>> i) & 1) !== 0;
+            modules[size - 8][8] = true;
+        }
+
+        function drawVersionBits(modules, version, size) {
+            let rem = version;
+            for (let i = 0; i < 12; i++) rem = (rem << 1) ^ ((rem >>> 11) * 0x1F25);
+            const bits = (version << 12) | rem;
+            for (let i = 0; i < 18; i++) {
+                const bit = ((bits >>> i) & 1) !== 0;
+                const a = size - 11 + i % 3;
+                const b = Math.floor(i / 3);
+                modules[a][b] = bit;
+                modules[b][a] = bit;
+            }
+        }
+
+        function computePenalty(modules, size) {
+            let result = 0;
+            // 簡化版 penalty 計算（足以選出可掃描的 mask）
+            for (let y = 0; y < size; y++) {
+                let runColor = false, runLen = 0;
+                for (let x = 0; x < size; x++) {
+                    if (modules[y][x] === runColor) { runLen++; if (runLen === 5) result += 3; else if (runLen > 5) result++; }
+                    else { runColor = modules[y][x]; runLen = 1; }
+                }
+            }
+            for (let x = 0; x < size; x++) {
+                let runColor = false, runLen = 0;
+                for (let y = 0; y < size; y++) {
+                    if (modules[y][x] === runColor) { runLen++; if (runLen === 5) result += 3; else if (runLen > 5) result++; }
+                    else { runColor = modules[y][x]; runLen = 1; }
+                }
+            }
+            return result;
+        }
     </script>
 </body>
 </html>
